@@ -1,0 +1,24 @@
+// Define types for route and navigation props
+export type RootStackParamList = {
+  UpdateProfile: undefined;
+  SignUp: undefined;
+  SignIn: undefined;
+  Home: undefined;
+  ProductsByCategory: {
+    categoryName: string;
+  };
+  ProductDetail: {
+    productID: number;
+  };
+  CartTab: undefined;
+  MyHome: undefined;
+  MyOrders: undefined;
+  Auth: undefined;
+  Main: undefined;
+  HomeTab: undefined;
+  Categories: undefined;
+  CategoriesTab: undefined;
+  HomeProductDetail: {
+    productID: number;
+  };
+};

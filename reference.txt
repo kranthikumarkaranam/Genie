@@ -1,0 +1,8 @@
+========= avatar =======
+https://www.npmjs.com/package/react-native-image-picker
+https://www.npmjs.com/package/react-native-user-avatar
+https://www.educative.io/answers/how-to-use-react-native-image-picker
+https://enappd.com/blog/pick-images-from-camera-gallery-in-react-native-app/78/
+
+How to write types for React Naviagtion props (Navigation , Route)
+https://reactnavigation.org/docs/typescript/#type-checking-the-navigator
