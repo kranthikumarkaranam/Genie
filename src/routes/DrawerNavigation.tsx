@@ -24,7 +24,7 @@ export const SideDrawer = () => {
           },
           headerShown: false,
         }}
-        initialRouteName="Home"
+        initialRouteName="MyOrders"
         drawerContent={props => <CustomDrawerContent {...props} />}>
         <Drawer.Screen name="Home" component={BottomTabs} />
         <Drawer.Screen name="MyOrders" component={MyOrdersScreen} />

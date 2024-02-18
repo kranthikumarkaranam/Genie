@@ -11,8 +11,9 @@ interface SearchBarT {
 }
 const SearchBar = ({value, onChangeText, onPress, style}: SearchBarT) => {
   return (
-    <View style={styles.wrapperContainer}>
-      <View style={[styles.container, style]}>
+    <View style={[styles.wrapperContainer, style]}>
+      <View style={styles.container}>
+        {/* <Text style={styles.icon}>SEARCH-ICON</Text> */}
         <TextInput
           placeholder="search"
           style={styles.input}
@@ -21,7 +22,7 @@ const SearchBar = ({value, onChangeText, onPress, style}: SearchBarT) => {
           placeholderTextColor="#959595"
         />
         <TouchableNativeFeedback onPress={onPress}>
-          <Text style={styles.icon}>SI</Text>
+          <Text style={styles.icon}>SEARCH-ICON</Text>
         </TouchableNativeFeedback>
       </View>
     </View>
@@ -31,6 +32,8 @@ const SearchBar = ({value, onChangeText, onPress, style}: SearchBarT) => {
 const styles = StyleSheet.create({
   wrapperContainer: {
     height: 60,
+    width: '100%',
+    // backgroundColor: 'black',
   },
   container: {
     flexDirection: 'row',
@@ -44,12 +47,12 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   input: {
-    width: '80%',
-    fontSize: 18,
+    width: '85%',
+    fontSize: 19,
     color: '#333333',
   },
   icon: {
-    width: 30,
+    width: 40,
     height: 18,
     textAlign: 'center',
   },

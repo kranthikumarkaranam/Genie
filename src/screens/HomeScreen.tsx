@@ -6,6 +6,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TouchableNativeFeedback,
   View,
 } from 'react-native';
 import SearchBar from '../components/SearchBar';
@@ -16,11 +17,14 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {FetchAllProducts} from '../store/ProductsSlice';
 import {store} from '../store/store';
 import {useAppDispatch, useAppSelector} from '../store/pre-Typed';
+import {productApiT, productsApiT} from '../types/api-Types';
 
 type NavigationPropsT = NativeStackScreenProps<RootStackParamList, 'MyHome'>;
 
 const HomeScreen = ({navigation}: NavigationPropsT) => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [searchData, setSearchData] = useState<productApiT[]>([]);
+  const [showSearchResults, setShowSearchResults] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const products = useAppSelector(state => state.Products.entities.byId);
   const ProductItems = Object.values(products);
@@ -52,8 +56,14 @@ const HomeScreen = ({navigation}: NavigationPropsT) => {
     }
   };
 
-  const searchHandler = () => {
+  const searchHandler = async () => {
     console.log('search icon pressed', searchTerm);
+    const response = await fetch(
+      `https://dummyjson.com/products/search?q=${searchTerm}`,
+    );
+    const data = (await response.json()) as productsApiT;
+    setSearchData(data.products);
+    setShowSearchResults(true);
   };
 
   const itemPressHandler = (id: number) => {
@@ -61,17 +71,47 @@ const HomeScreen = ({navigation}: NavigationPropsT) => {
       productID: id,
     });
   };
+  const backPressHandler = () => {
+    setShowSearchResults(false);
+    setSearchTerm('');
+    setSearchData([]);
+  };
 
   return (
-    <View style={styles.container}>
-      <SearchBar
-        value={searchTerm}
-        onChangeText={searchTerm => setSearchTerm(searchTerm)}
-        onPress={searchHandler}
-      />
+    <>
+      <View style={styles.container}>
+        {!showSearchResults && (
+          <>
+            <SearchBar
+              value={searchTerm}
+              onChangeText={searchTerm => setSearchTerm(searchTerm)}
+              onPress={searchHandler}
+            />
+            <ProductList data={ProductItems} itemPress={itemPressHandler} />
+          </>
+        )}
+        {showSearchResults && (
+          <View style={styles.searchContainer}>
+            <TouchableNativeFeedback onPress={backPressHandler}>
+              <Text style={styles.back}>BACK</Text>
+            </TouchableNativeFeedback>
 
-      <ProductList data={ProductItems} itemPress={itemPressHandler} />
-    </View>
+            <SearchBar
+              value={searchTerm}
+              onChangeText={searchTerm => setSearchTerm(searchTerm)}
+              onPress={searchHandler}
+              style={{width: '90%'}}
+            />
+          </View>
+        )}
+        {showSearchResults && searchData.length === 0 && (
+          <Text style={styles.notFound}>No results found.</Text>
+        )}
+        {showSearchResults && searchData.length > 0 && (
+          <ProductList data={searchData} itemPress={itemPressHandler} />
+        )}
+      </View>
+    </>
   );
 };
 
@@ -82,9 +122,24 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 10,
   },
+  searchContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   image: {
     width: '100%',
     height: 250,
+  },
+  back: {
+    color: '#3c3c3c',
+    marginRight: 3,
+  },
+  notFound: {
+    flex: 1,
+    textAlign: 'center',
+    fontSize: 18,
+    color: '#666',
+    marginTop: 30,
   },
 });
 
