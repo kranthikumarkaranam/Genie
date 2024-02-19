@@ -9,6 +9,7 @@ import {
 } from '../util/UtilityFunctions';
 import {useAppSelector} from '../store/pre-Typed';
 import {productApiT} from '../types/api-Types';
+import ImageCarousel from './ImageCarousel';
 
 type ProductDetailsT = {
   data: productApiT;
@@ -36,13 +37,9 @@ const ProductDetails = ({data}: ProductDetailsT) => {
         {data.title}
       </Text>
 
-      {/*  TODO: image carousal here */}
-      <Image
-        style={styles.image}
-        source={{
-          uri: data.thumbnail,
-        }}
-      />
+      <View style={styles.imageContainer}>
+        <ImageCarousel images={data.images} />
+      </View>
 
       <Text style={styles.deal}>Deal of the day</Text>
       <View style={styles.priceContainer}>
@@ -104,12 +101,10 @@ const styles = StyleSheet.create({
   rating: {
     marginTop: 0,
   },
-  image: {
+  imageContainer: {
     width: '100%',
     height: 200,
-    resizeMode: 'contain',
-    marginTop: 50,
-    borderRadius: 18,
+    marginTop: 20,
     marginBottom: 80,
   },
   deal: {

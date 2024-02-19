@@ -2,6 +2,8 @@ import React from 'react';
 import {StyleProp, ViewStyle} from 'react-native';
 import {TouchableNativeFeedback} from 'react-native';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
+import Ionicon from 'react-native-vector-icons/Ionicons';
+import constants from '../util/constants';
 
 interface SearchBarT {
   value: string;
@@ -21,8 +23,11 @@ const SearchBar = ({value, onChangeText, onPress, style}: SearchBarT) => {
           onChangeText={onChangeText}
           placeholderTextColor="#959595"
         />
+
         <TouchableNativeFeedback onPress={onPress}>
-          <Text style={styles.icon}>SEARCH-ICON</Text>
+          <View style={styles.icon}>
+            <Ionicon name="search" size={20} color={constants.PrimaryColor} />
+          </View>
         </TouchableNativeFeedback>
       </View>
     </View>
@@ -33,7 +38,6 @@ const styles = StyleSheet.create({
   wrapperContainer: {
     height: 60,
     width: '100%',
-    // backgroundColor: 'black',
   },
   container: {
     flexDirection: 'row',
@@ -51,11 +55,7 @@ const styles = StyleSheet.create({
     fontSize: 19,
     color: '#333333',
   },
-  icon: {
-    width: 40,
-    height: 18,
-    textAlign: 'center',
-  },
+  icon: {},
 });
 
 export default SearchBar;

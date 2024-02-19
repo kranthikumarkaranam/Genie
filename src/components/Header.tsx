@@ -1,7 +1,9 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import constants from '../util/constants';
-import {Icon, IconButton} from 'react-native-paper';
+import {TouchableNativeFeedback} from 'react-native';
+import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 interface HeaderT {
   menuPress: () => void;
@@ -9,21 +11,26 @@ interface HeaderT {
 const Header = ({menuPress}: HeaderT) => {
   return (
     <View style={styles.container}>
-      <IconButton
-        icon="menu"
-        iconColor="white"
-        size={36}
-        style={styles.menu}
-        onPress={menuPress}
-      />
+      <TouchableNativeFeedback onPress={menuPress}>
+        <View style={styles.menu}>
+          <MaterialIcon name="menu" size={36} color="white" />
+        </View>
+      </TouchableNativeFeedback>
       <Image
         style={styles.image}
         source={require('../assets/Images/name-logo-removebg.png')}
       />
-      <View style={styles.locationContainer}>
-        <Text style={styles.location}>Chennai</Text>
-        <Icon source="map-marker-radius" color="white" size={22} />
-      </View>
+      <TouchableNativeFeedback onPress={menuPress}>
+        <View style={styles.locationContainer}>
+          <Text style={styles.location}>Chennai</Text>
+
+          <MaterialCommunityIcon
+            name="map-marker-radius"
+            size={24}
+            color="white"
+          />
+        </View>
+      </TouchableNativeFeedback>
     </View>
   );
 };
@@ -37,7 +44,10 @@ const styles = StyleSheet.create({
     height: 52,
     paddingTop: 12,
   },
-  menu: {paddingBottom: 10, marginLeft: 0},
+  menu: {
+    marginLeft: 8,
+    marginTop: -8,
+  },
   image: {
     marginTop: -5,
     width: 120,
@@ -55,8 +65,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: 'white',
     fontWeight: '500',
-    paddingRight: 2,
-    paddingTop: 2,
+    paddingRight: 4,
+    paddingTop: 4,
   },
 });
 

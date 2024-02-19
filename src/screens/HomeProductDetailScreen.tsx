@@ -46,7 +46,7 @@ const HomeProductDetailScreen = ({route, navigation}: NavigationPropsT) => {
   };
   return (
     <>
-      <ScreenHead isBack={true} backPress={backPressHandler} />
+      <ScreenHead isBack={true} backPress={backPressHandler} isLastScreen />
       <ScrollView>
         <ProductDetails data={productDetails} />
       </ScrollView>

@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import SearchBar from '../components/SearchBar';
 import ProductList from '../components/ProductList';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 import {RootStackParamList} from '../routes/routeTypes';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -18,6 +19,9 @@ import {FetchAllProducts} from '../store/ProductsSlice';
 import {store} from '../store/store';
 import {useAppDispatch, useAppSelector} from '../store/pre-Typed';
 import {productApiT, productsApiT} from '../types/api-Types';
+import ImageCarousel from '../components/ImageCarousel';
+import {Images} from '../util/data';
+import constants from '../util/constants';
 
 type NavigationPropsT = NativeStackScreenProps<RootStackParamList, 'MyHome'>;
 
@@ -57,7 +61,7 @@ const HomeScreen = ({navigation}: NavigationPropsT) => {
   };
 
   const searchHandler = async () => {
-    console.log('search icon pressed', searchTerm);
+    if (!searchTerm || searchTerm === '') return;
     const response = await fetch(
       `https://dummyjson.com/products/search?q=${searchTerm}`,
     );
@@ -79,6 +83,7 @@ const HomeScreen = ({navigation}: NavigationPropsT) => {
 
   return (
     <>
+      <ImageCarousel images={Images} />
       <View style={styles.container}>
         {!showSearchResults && (
           <>
@@ -93,7 +98,13 @@ const HomeScreen = ({navigation}: NavigationPropsT) => {
         {showSearchResults && (
           <View style={styles.searchContainer}>
             <TouchableNativeFeedback onPress={backPressHandler}>
-              <Text style={styles.back}>BACK</Text>
+              <View style={styles.back}>
+                <MaterialIcon
+                  name="arrow-back"
+                  size={32}
+                  color={constants.PrimaryColor}
+                />
+              </View>
             </TouchableNativeFeedback>
 
             <SearchBar
@@ -131,8 +142,8 @@ const styles = StyleSheet.create({
     height: 250,
   },
   back: {
-    color: '#3c3c3c',
-    marginRight: 3,
+    marginRight: 7,
+    marginBottom: 10,
   },
   notFound: {
     flex: 1,
