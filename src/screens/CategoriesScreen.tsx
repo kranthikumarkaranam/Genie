@@ -13,9 +13,10 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../routes/routeTypes';
 import ScreenHead from '../components/ScreenHead';
 import {useAppDispatch, useAppSelector} from '../store/pre-Typed';
-import {FetchAllCategories} from '../store/CategoriesSlice';
+import {Category, FetchAllCategories} from '../store/CategoriesSlice';
 import {store} from '../store/store';
 import {reverseFormatCategory} from '../util/UtilityFunctions';
+import {FlatList} from 'react-native';
 
 type NavigationPropsT = NativeStackScreenProps<
   RootStackParamList,
@@ -106,26 +107,33 @@ const CategoriesScreen = ({navigation}: NavigationPropsT) => {
     navigation.navigate('ProductsByCategory', {categoryName: category});
   };
 
+  const renderItem = ({item}: {item: Category}) => (
+    // <ProductItem data={item} onPress={itemPress} />
+    <TouchableOpacity
+      // key={index}
+      onPress={() => {
+        categorySelectHandler(item.name);
+      }}>
+      <View style={[styles.categoryContainer]}>
+        <Image
+          source={getImageForCategory(item.name)}
+          style={styles.categoryImage}
+        />
+        <Text style={styles.categoryText}>{item.name}</Text>
+      </View>
+    </TouchableOpacity>
+  );
+
   return (
     <>
       <ScreenHead title="All Categories" isBack={false} />
-      <ScrollView contentContainerStyle={styles.container}>
-        {CategoriesList.map((category, index) => (
-          <TouchableOpacity
-            key={index}
-            onPress={() => {
-              categorySelectHandler(category.name);
-            }}>
-            <View style={[styles.categoryContainer]}>
-              <Image
-                source={getImageForCategory(category.name)}
-                style={styles.categoryImage}
-              />
-              <Text style={styles.categoryText}>{category.name}</Text>
-            </View>
-          </TouchableOpacity>
-        ))}
-      </ScrollView>
+      <FlatList
+        data={CategoriesList}
+        renderItem={renderItem}
+        keyExtractor={item => item.id.toString()}
+        numColumns={3}
+        contentContainerStyle={styles.flatListContainer}
+      />
     </>
   );
 };
@@ -134,13 +142,10 @@ const screenWidth = Dimensions.get('window').width;
 const itemWidth = (screenWidth - 20) / 4;
 
 const styles = StyleSheet.create({
-  container: {
+  flatListContainer: {
     paddingVertical: 20,
-    paddingHorizontal: 20,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    paddingLeft: 38,
     justifyContent: 'space-between',
-    backgroundColor: 'white',
   },
   categoryContainer: {
     width: itemWidth,

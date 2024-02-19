@@ -9,6 +9,7 @@ import {
 } from '../screens';
 import {RootStackParamList} from './routeTypes';
 import HomeProductDetailScreen from '../screens/HomeProductDetailScreen';
+import HomeProductsByCategoryScreen from '../screens/HomeProductsByCategoryScreen';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -29,6 +30,10 @@ export const HomeStack = () => (
     <Stack.Screen
       name="HomeProductDetail"
       component={HomeProductDetailScreen}
+    />
+    <Stack.Screen
+      name="HomeProductsByCategory"
+      component={HomeProductsByCategoryScreen}
     />
   </Stack.Navigator>
 );

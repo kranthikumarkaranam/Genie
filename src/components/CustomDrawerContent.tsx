@@ -9,6 +9,7 @@ import {useAppDispatch, useAppSelector} from '../store/pre-Typed';
 import constants from '../util/constants';
 import {TouchableNativeFeedback} from 'react-native';
 import {clearAll} from '../store/MyUserSlice';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 const CustomDrawerContent = (props: DrawerContentComponentProps) => {
   const {firstName, lastName, image} = useAppSelector(state => state.MyUser);
@@ -56,9 +57,12 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
       <View style={{height: 0.2, backgroundColor: 'grey'}}></View>
       <DrawerItem
         label="Log Out"
-        labelStyle={{textAlign: 'center', fontSize: 18}}
+        labelStyle={{marginLeft: -16, fontSize: 18}}
         inactiveTintColor="red"
         onPress={LogOutHandler}
+        icon={({color, size, focused}) => (
+          <MaterialIcons name="logout" color={color} size={size} />
+        )}
       />
     </DrawerContentScrollView>
   );

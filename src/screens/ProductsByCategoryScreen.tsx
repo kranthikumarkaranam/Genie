@@ -1,6 +1,6 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useEffect} from 'react';
-import {Alert, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {Alert, StyleSheet, Text, View} from 'react-native';
 import {RootStackParamList} from '../routes/routeTypes';
 import ProductItem from '../components/ProductItem';
 import ScreenHead from '../components/ScreenHead';

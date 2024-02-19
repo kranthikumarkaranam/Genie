@@ -1,9 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {
   Alert,
-  FlatList,
-  Image,
-  ScrollView,
   StyleSheet,
   Text,
   TouchableNativeFeedback,
@@ -20,8 +17,7 @@ import {store} from '../store/store';
 import {useAppDispatch, useAppSelector} from '../store/pre-Typed';
 import {productApiT, productsApiT} from '../types/api-Types';
 import ImageCarousel from '../components/ImageCarousel';
-import {Images} from '../util/data';
-import constants from '../util/constants';
+import constants, {BannerImages} from '../util/constants';
 
 type NavigationPropsT = NativeStackScreenProps<RootStackParamList, 'MyHome'>;
 
@@ -81,9 +77,14 @@ const HomeScreen = ({navigation}: NavigationPropsT) => {
     setSearchData([]);
   };
 
+  const ImagePressHandler = (categoryName: string) => {
+    console.log('categoryName', categoryName);
+    navigation.navigate('ProductsByCategory', {categoryName});
+  };
+
   return (
     <>
-      <ImageCarousel images={Images} />
+      <ImageCarousel images={BannerImages} />
       <View style={styles.container}>
         {!showSearchResults && (
           <>

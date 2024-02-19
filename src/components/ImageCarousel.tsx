@@ -13,7 +13,7 @@ import Pagination from './Pagination';
 
 const {width: windowWidth} = Dimensions.get('window');
 
-const ImageCarousel = ({images}: {images: string[]}) => {
+const ImageCarousel = ({images}: {images: string[] | undefined}) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const scrollViewRef = useRef<ScrollView>(null);
 
@@ -28,6 +28,10 @@ const ImageCarousel = ({images}: {images: string[]}) => {
       scrollViewRef.current.scrollTo({x: index * windowWidth, animated: true});
     }
   };
+
+  if (!images || images.length === 0) {
+    return null;
+  }
 
   return (
     <View style={styles.container}>
@@ -50,9 +54,7 @@ const ImageCarousel = ({images}: {images: string[]}) => {
           />
         </>
       ) : (
-        <>
-          <Image source={{uri: images[0]}} style={styles.image} />
-        </>
+        <Image source={{uri: images[0]}} style={styles.image} />
       )}
     </View>
   );

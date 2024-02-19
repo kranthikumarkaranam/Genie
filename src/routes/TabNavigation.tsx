@@ -4,7 +4,10 @@ import {CartScreen} from '../screens';
 import {HomeStack, ProductStack} from './StackNavigation';
 import {RootStackParamList} from './routeTypes';
 import type {DrawerScreenProps} from '@react-navigation/drawer';
-import {IconButton, MD3Colors} from 'react-native-paper';
+import AntDesign from 'react-native-vector-icons/AntDesign';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+
 import Header from '../components/Header';
 
 const Tab = createBottomTabNavigator<RootStackParamList>();
@@ -17,33 +20,26 @@ export const BottomTabs = ({navigation}: NavigationPropsT) => {
   };
   return (
     <>
-      {/* <IconButton
-        icon="camera"
-        iconColor={MD3Colors.error50}
-        size={20}
-        onPress={drawerMenuHandler}
-        style={{backgroundColor: constants.PrimaryColor, width: '100%'}}
-      /> */}
       <Header menuPress={drawerMenuHandler} />
       <Tab.Navigator
         initialRouteName="HomeTab"
         screenOptions={{
           tabBarActiveTintColor: constants.PrimaryColor,
           headerShown: false,
+          tabBarLabelStyle: {fontSize: 15},
         }}>
         <Tab.Screen
           name="HomeTab"
           component={HomeStack}
           options={{
             tabBarLabel: 'Home',
-            tabBarLabelStyle: {fontSize: 14},
-            // tabBarIcon: ({color, size}) => (
-            //   <MaterialCommunityIcons
-            //     name="home-outline"
-            //     color={color}
-            //     size={size}
-            //   />
-            // ),
+            tabBarIcon: ({color, size, focused}) => (
+              <Ionicons
+                name={focused ? 'home' : 'home'}
+                color={color}
+                size={28}
+              />
+            ),
           }}
         />
         <Tab.Screen
@@ -51,14 +47,13 @@ export const BottomTabs = ({navigation}: NavigationPropsT) => {
           component={ProductStack}
           options={{
             tabBarLabel: 'Categories',
-            tabBarLabelStyle: {fontSize: 14},
-            // tabBarIcon: ({color, size}) => (
-            //   <MaterialCommunityIcons
-            //     name="shape-outline"
-            //     color={color}
-            //     size={size}
-            //   />
-            // ),
+            tabBarIcon: ({color, size, focused}) => (
+              <AntDesign
+                name={focused ? 'appstore1' : 'appstore1'}
+                color={color}
+                size={24}
+              />
+            ),
           }}
         />
         <Tab.Screen
@@ -66,21 +61,14 @@ export const BottomTabs = ({navigation}: NavigationPropsT) => {
           component={CartScreen}
           options={{
             tabBarLabel: 'Cart',
-            tabBarLabelStyle: {fontSize: 14},
-            // tabBarBadge: 3,
-            // tabBarIcon: ({color, size}) => (
-            //   // <MaterialCommunityIcons
-            //   //   name="cart-outline"
-            //   //   color={color}
-            //   //   size={size}
-            //   // />
-            //   <IconButton
-            //     icon="cart-variants"
-            //     iconColor={color}
-            //     size={size}
-            //     onPress={() => console.log('Pressed')}
-            //   />
-            // ),
+            tabBarBadge: 3,
+            tabBarIcon: ({color, size, focused}) => (
+              <MaterialIcons
+                name={focused ? 'shopping-cart' : 'shopping-cart'}
+                color={color}
+                size={28}
+              />
+            ),
           }}
         />
       </Tab.Navigator>

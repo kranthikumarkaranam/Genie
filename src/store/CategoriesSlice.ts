@@ -5,7 +5,7 @@ import {storeT} from '../types/store-Types';
 import constants from '../util/constants';
 import {formatCategory} from '../util/UtilityFunctions';
 
-interface Category {
+export interface Category {
   id: number;
   name: string;
   products: productApiT[]; // Array of products belonging to this category

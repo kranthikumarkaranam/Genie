@@ -21,4 +21,5 @@ export type RootStackParamList = {
   HomeProductDetail: {
     productID: number;
   };
+  HomeProductsByCategory: undefined;
 };

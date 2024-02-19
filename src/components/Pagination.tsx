@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     backgroundColor: constants.PrimaryColor,
   },
   inactiveDot: {
-    backgroundColor: 'gray',
+    backgroundColor: '#d8d8d6',
   },
 });
 
