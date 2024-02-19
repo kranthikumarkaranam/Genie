@@ -46,8 +46,6 @@ const MyOrdersScreen = ({navigation}: NavigationPropsT) => {
           <Text>No orders found</Text>
         )}
       </View> */}
-
-      <CustomCarousel />
     </>
   );
 };
