@@ -5,6 +5,7 @@ import {
   StyleSheet,
   Text,
   View,
+  Alert,
 } from 'react-native';
 import StarRatings from './StarRatings';
 import {
@@ -14,7 +15,7 @@ import {
 import {productApiT} from '../types/api-Types';
 import CustomButton from './CustomButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {useAppDispatch} from '../store/pre-Typed';
+import {useAppDispatch, useAppSelector} from '../store/pre-Typed';
 import {store} from '../store/store';
 import {addProductToCart_ProductsSlice} from '../store/ProductsSlice';
 import {addProductToCart_CategoriesSlice} from '../store/CategoriesSlice';
@@ -25,7 +26,37 @@ interface ProductItemT {
 }
 const ProductItem = ({data, onPress, goToCart}: ProductItemT) => {
   const dispatch = useAppDispatch();
-  const [isAddedToCart, setIsAddedToCart] = useState<boolean>(false);
+  const products = useAppSelector(state => state.Products.entities);
+  const product = products.find(el => el.id === data.id);
+
+  let productDetails: productApiT = {
+    id: 0,
+    title: '',
+    description: '',
+    price: 0,
+    discountPercentage: 0,
+    rating: 0,
+    stock: 0,
+    brand: '',
+    category: '',
+    thumbnail: '',
+    images: [],
+    isInCart: false,
+    cartCount: 0,
+  };
+  // Check if category & product are undefined
+  if (product !== undefined) {
+    productDetails = product;
+  } else {
+    // Handle the case when they are undefined
+    Alert.alert('Error', `The product details were not found.`);
+  }
+
+  const [isInCart, setIsInCart] = useState<boolean>(productDetails.isInCart);
+  useEffect(() => {
+    // Update the isInCart state whenever the product.isInCart property changes
+    setIsInCart(productDetails.isInCart);
+  }, [productDetails.isInCart]);
 
   const originalPrice = calculateOriginalPrice(
     data.price,
@@ -37,7 +68,7 @@ const ProductItem = ({data, onPress, goToCart}: ProductItemT) => {
   );
 
   const addToCartHandler = (productId: number) => {
-    setIsAddedToCart(true);
+    // setIsAddedToCart(true);
     // Add the item to cart in local storage
     // const cartItems = JSON.parse(
     //   (AsyncStorage.getItem('cartItems') as Promise<string | null>).then((value) => value ?? '[]'),
@@ -88,14 +119,14 @@ const ProductItem = ({data, onPress, goToCart}: ProductItemT) => {
               height: 40,
             }}>
             <CustomButton
-              title={isAddedToCart ? 'Go to Cart' : 'Add to Cart'}
+              title={isInCart ? 'Go to Cart' : 'Add to Cart'}
               onPress={
-                isAddedToCart
+                isInCart
                   ? () => goToCart(data.id)
                   : () => addToCartHandler(data.id)
               }
               containerStyle={
-                isAddedToCart
+                isInCart
                   ? styles.goCartButtonContainer
                   : styles.addCartButtonContainer
               }
@@ -141,7 +172,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   category: {
-    fontSize: 10,
+    fontSize: 11,
     color: '#585f66',
     fontWeight: '500',
     marginBottom: 10,
@@ -184,7 +215,7 @@ const styles = StyleSheet.create({
     textTransform: 'capitalize',
   },
   addCartButtonContainer: {
-    backgroundColor: '#ffe100',
+    backgroundColor: '#ffd814',
     paddingVertical: 8,
     paddingHorizontal: 0,
     borderRadius: 8,

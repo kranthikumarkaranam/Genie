@@ -6,10 +6,14 @@ import ProductItem from '../components/ProductItem';
 import ScreenHead from '../components/ScreenHead';
 import {store} from '../store/store';
 import {useAppDispatch, useAppSelector} from '../store/pre-Typed';
-import {FetchAllProductsByCategory} from '../store/CategoriesSlice';
+import {
+  FetchAllProductsByCategory,
+  removeProductFromCart_CategoriesSlice,
+} from '../store/CategoriesSlice';
 import {productApiT} from '../types/api-Types';
 import {reverseFormatCategory} from '../util/UtilityFunctions';
 import ProductList from '../components/ProductList';
+import {removeProductFromCart_ProductsSlice} from '../store/ProductsSlice';
 
 type NavigationPropsT = NativeStackScreenProps<
   RootStackParamList,
@@ -77,7 +81,9 @@ const ProductsByCategoryScreen = ({route, navigation}: NavigationPropsT) => {
     });
   };
   const goToCartHandler = (productId: number) => {
-    navigation.navigate('CartTab');
+    // navigation.navigate('CartTab');
+    // dispatch(removeProductFromCart_ProductsSlice(productId));
+    // dispatch(removeProductFromCart_CategoriesSlice(productId));
   };
 
   return (

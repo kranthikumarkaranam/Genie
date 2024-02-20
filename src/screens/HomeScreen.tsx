@@ -12,12 +12,16 @@ import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 import {RootStackParamList} from '../routes/routeTypes';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {FetchAllProducts, removeProductFromCart} from '../store/ProductsSlice';
+import {
+  FetchAllProducts,
+  removeProductFromCart_ProductsSlice,
+} from '../store/ProductsSlice';
 import {store} from '../store/store';
 import {useAppDispatch, useAppSelector} from '../store/pre-Typed';
 import {productApiT, productsApiT} from '../types/api-Types';
 import ImageCarousel from '../components/ImageCarousel';
 import constants, {BannerImages} from '../util/constants';
+import {removeProductFromCart_CategoriesSlice} from '../store/CategoriesSlice';
 
 type NavigationPropsT = NativeStackScreenProps<RootStackParamList, 'MyHome'>;
 
@@ -89,8 +93,9 @@ const HomeScreen = ({navigation}: NavigationPropsT) => {
   };
 
   const goToCartHandler = (productId: number) => {
-    navigation.navigate('CartTab');
-    // dispatch(removeProductFromCart(productId));
+    // navigation.navigate('CartTab');
+    // dispatch(removeProductFromCart_ProductsSlice(productId));
+    // dispatch(removeProductFromCart_CategoriesSlice(productId));
   };
 
   return (

@@ -3,9 +3,10 @@ import ProductDetails from '../components/ProductDetails';
 import {RootStackParamList} from '../routes/routeTypes';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import ScreenHead from '../components/ScreenHead';
-import {Alert, ScrollView} from 'react-native';
+import {Alert, ScrollView, View} from 'react-native';
 import {productApiT} from '../types/api-Types';
 import {useAppSelector} from '../store/pre-Typed';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
 type NavigationPropsT = NativeStackScreenProps<
   RootStackParamList,
@@ -49,12 +50,30 @@ const ProductDetailScreen = ({route, navigation}: NavigationPropsT) => {
     navigation.goBack();
   };
 
+  const goToCartHandler = (productId: number) => {
+    navigation.navigate('CartTab');
+    // dispatch(removeProductFromCart_ProductsSlice(productId));
+    // dispatch(removeProductFromCart_CategoriesSlice(productId));
+  };
+
+  const buyNowHandler = (productId: number) => {
+    navigation.navigate('CartTab');
+    // dispatch(removeProductFromCart_ProductsSlice(productId));
+    // dispatch(removeProductFromCart_CategoriesSlice(productId));
+  };
+
   return (
     <>
       <ScreenHead isBack={true} backPress={backPressHandler} isLastScreen />
-      <ScrollView>
-        <ProductDetails data={productDetails} />
-      </ScrollView>
+      <GestureHandlerRootView style={{flex: 1, backgroundColor: 'white'}}>
+        <ScrollView>
+          <ProductDetails
+            data={productDetails}
+            goToCart={goToCartHandler}
+            buyNow={buyNowHandler}
+          />
+        </ScrollView>
+      </GestureHandlerRootView>
     </>
   );
 };
