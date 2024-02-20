@@ -14,7 +14,9 @@ export type RootStackParamList = {
   HomeProductDetail: {
     productID: number;
   };
-  CartTab: undefined;
+  CartTab: {
+    productID: number;
+  };
   MyHome: undefined;
   MyOrders: undefined;
   Auth: undefined;

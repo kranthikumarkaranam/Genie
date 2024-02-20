@@ -61,7 +61,6 @@ export const BottomTabs = ({navigation}: NavigationPropsT) => {
           component={CartScreen}
           options={{
             tabBarLabel: 'Cart',
-            tabBarBadge: 3,
             tabBarIcon: ({color, size, focused}) => (
               <MaterialIcons
                 name={focused ? 'shopping-cart' : 'shopping-cart'}

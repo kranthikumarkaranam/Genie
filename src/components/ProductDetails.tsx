@@ -103,7 +103,9 @@ const ProductDetails = ({data, goToCart, buyNow}: ProductDetailsT) => {
 
       <Text style={styles.deal}>Deal of the day</Text>
       <View style={styles.priceContainer}>
-        <Text style={styles.discount}>{`-${roundedDiscountPercentage}%`}</Text>
+        <Text style={styles.discount}>
+          &#x2212;{`${roundedDiscountPercentage}%`}
+        </Text>
         <Text style={styles.price}>${data.price}</Text>
       </View>
       <View style={{flexDirection: 'row'}}>

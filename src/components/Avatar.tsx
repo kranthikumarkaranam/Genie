@@ -53,14 +53,33 @@ const Avatar = ({style, onImageSelected}: AvatarT) => {
     <View style={style}>
       <TouchableNativeFeedback onPress={openImagePicker}>
         {selectedImage ? (
-          <View>
+          <View style={{position: 'relative'}}>
             <Image
               style={{width: 160, height: 160, borderRadius: 80}}
               source={{
                 uri: selectedImage,
               }}
             />
-            <Ionicons name={'camera'} color={'grey'} size={14} />
+            <View
+              style={{
+                position: 'absolute',
+                top: '80%',
+                left: '80%',
+                transform: [{translateX: -16}, {translateY: -16}],
+              }}>
+              <View
+                style={{
+                  width: 40,
+                  height: 40,
+                  backgroundColor: 'white',
+                  position: 'absolute',
+                  paddingLeft: 6,
+                  paddingTop: 5,
+                  borderRadius: 20,
+                }}>
+                <Ionicons name={'camera'} color={'grey'} size={28} />
+              </View>
+            </View>
           </View>
         ) : (
           <View style={{position: 'relative'}}>

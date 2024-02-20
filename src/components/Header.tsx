@@ -9,6 +9,9 @@ interface HeaderT {
   menuPress: () => void;
 }
 const Header = ({menuPress}: HeaderT) => {
+  const locationHandler = () => {
+    console.log('location Handler pressed');
+  };
   return (
     <View style={styles.container}>
       <TouchableNativeFeedback onPress={menuPress}>
@@ -20,7 +23,7 @@ const Header = ({menuPress}: HeaderT) => {
         style={styles.image}
         source={require('../assets/Images/name-logo-removebg.png')}
       />
-      <TouchableNativeFeedback onPress={menuPress}>
+      <TouchableNativeFeedback onPress={locationHandler}>
         <View style={styles.locationContainer}>
           <Text style={styles.location}>Chennai</Text>
 

@@ -1,6 +1,14 @@
-import {Image, StyleSheet, Text, View, Alert} from 'react-native';
+import {
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  Alert,
+  TouchableNativeFeedback,
+} from 'react-native';
 import StarRatings from './StarRatings';
 import {
+  CurrencyComponent,
   calculateOriginalPrice,
   roundToOneDecimalPlace,
 } from '../util/UtilityFunctions';
@@ -9,43 +17,38 @@ import {useAppDispatch, useAppSelector} from '../store/pre-Typed';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import constants from '../util/constants';
+import {useState} from 'react';
+import {
+  addProductToCart_ProductsSlice,
+  removeProductFromCart_ProductsSlice,
+} from '../store/ProductsSlice';
+import {
+  addProductToCart_CategoriesSlice,
+  removeProductFromCart_CategoriesSlice,
+} from '../store/CategoriesSlice';
 
-const CartItem = () => {
-  const products = useAppSelector(state => state.Products.entities);
-
-  const product = products.find(p => p.id === 1);
-
-  let productDetails: productApiT = {
-    id: 0,
-    title: '',
-    description: '',
-    price: 0,
-    discountPercentage: 0,
-    rating: 0,
-    stock: 0,
-    brand: '',
-    category: '',
-    thumbnail: '',
-    images: [],
-    isInCart: false,
-    cartCount: 0,
-  };
-  // Check if category & product are undefined
-  if (product !== undefined) {
-    productDetails = product;
-  } else {
-    // Handle the case when they are undefined
-    Alert.alert('Error', `The product details were not found.`);
-  }
+interface CartItemT {
+  data: productApiT;
+}
+const CartItem = ({data}: CartItemT) => {
+  const dispatch = useAppDispatch();
+  const [cartCount, setCartCount] = useState<number>(data.cartCount);
 
   const originalPrice = calculateOriginalPrice(
-    productDetails.price,
-    productDetails.discountPercentage,
+    data.price,
+    data.discountPercentage,
   );
-  const roundedRating = roundToOneDecimalPlace(productDetails.rating);
-  const roundedDiscountPercentage = roundToOneDecimalPlace(
-    productDetails.discountPercentage,
-  );
+
+  const plusPressHandler = () => {
+    setCartCount(prevValue => prevValue + 1);
+    dispatch(addProductToCart_ProductsSlice(data.id));
+    dispatch(addProductToCart_CategoriesSlice(data.id));
+  };
+  const minusPressHandler = () => {
+    setCartCount(prevValue => prevValue - 1);
+    dispatch(removeProductFromCart_ProductsSlice(data.id));
+    dispatch(removeProductFromCart_CategoriesSlice(data.id));
+  };
 
   return (
     <>
@@ -54,27 +57,31 @@ const CartItem = () => {
           <Image
             style={styles.image}
             source={{
-              uri: productDetails.thumbnail,
+              uri: data.thumbnail,
             }}
           />
         </View>
         <View style={styles.textContainer}>
           <Text style={styles.title} numberOfLines={2}>
-            {productDetails.title}
+            {data.title}
           </Text>
 
           <View style={styles.priceContainer}>
-            <Text style={styles.price}>${productDetails.price}</Text>
-            <Text style={styles.mrp}></Text>
+            <Text style={styles.price}>${data.price * cartCount}</Text>
             <Text style={[styles.mrp, {textDecorationLine: 'line-through'}]}>
-              ${originalPrice}
+              {`$${originalPrice * cartCount}`}
             </Text>
           </View>
           <View style={styles.buttonsContainer}>
-            <View style={[styles.icon, {borderRightWidth: 0.8}]}>
-              <AntDesign name="minus" size={22} color="#393939" />
-              {/* <Ionicons name="trash-outline" size={20} color="#393939" /> */}
-            </View>
+            <TouchableNativeFeedback onPress={minusPressHandler}>
+              <View style={[styles.icon, {borderRightWidth: 0.8}]}>
+                {cartCount === 1 ? (
+                  <Ionicons name="trash-outline" size={20} color="#393939" />
+                ) : (
+                  <AntDesign name="minus" size={22} color="#393939" />
+                )}
+              </View>
+            </TouchableNativeFeedback>
             <View style={[styles.icon, {backgroundColor: 'white'}]}>
               <Text
                 style={{
@@ -82,12 +89,14 @@ const CartItem = () => {
                   fontWeight: '600',
                   color: constants.PrimaryColor,
                 }}>
-                3
+                {cartCount}
               </Text>
             </View>
-            <View style={[styles.icon, {borderLeftWidth: 0.8}]}>
-              <AntDesign name="plus" size={22} color="#393939" />
-            </View>
+            <TouchableNativeFeedback onPress={plusPressHandler}>
+              <View style={[styles.icon, {borderLeftWidth: 0.8}]}>
+                <AntDesign name="plus" size={22} color="#393939" />
+              </View>
+            </TouchableNativeFeedback>
           </View>
         </View>
       </View>
@@ -118,16 +127,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   image: {
-    width: '90%',
+    width: '100%',
     height: '100%',
     resizeMode: 'contain',
-    marginHorizontal: 10,
   },
   textContainer: {
     padding: 8,
     marginLeft: 24,
     backgroundColor: 'white',
-    maxWidth: '55%',
+    minWidth: '66%',
     flexGrow: 1,
     justifyContent: 'flex-start',
   },

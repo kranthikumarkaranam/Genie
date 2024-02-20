@@ -93,7 +93,7 @@ const HomeScreen = ({navigation}: NavigationPropsT) => {
   };
 
   const goToCartHandler = (productId: number) => {
-    // navigation.navigate('CartTab');
+    navigation.navigate('CartTab', {productID: productId});
     // dispatch(removeProductFromCart_ProductsSlice(productId));
     // dispatch(removeProductFromCart_CategoriesSlice(productId));
   };

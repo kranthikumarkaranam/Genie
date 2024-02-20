@@ -45,3 +45,25 @@ export const reverseFormatCategory = (formattedName: string) => {
     .map(word => word.charAt(0).toLowerCase() + word.slice(1))
     .join('-');
 };
+
+export const calculateTotalPrice = (prices: number[]) => {
+  // Check if the array is empty
+  if (prices.length === 0) {
+    return 0;
+  }
+
+  // Calculate the total price by summing up all prices
+  const totalPrice = prices.reduce((sum, price) => sum + price, 0);
+
+  return totalPrice;
+};
+
+export const CurrencyComponent = (amount: number) => {
+  // Format the number as currency
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+  });
+
+  return formatter.format(amount);
+};
