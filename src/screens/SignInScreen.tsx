@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Alert, StyleSheet, Text, View} from 'react-native';
+import {Alert, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
 import {useAppDispatch} from '../store/pre-Typed';
@@ -7,6 +7,7 @@ import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import constants from '../util/constants';
 import {RootStackParamList} from '../routes/routeTypes';
 import {ValidateUser} from '../store/ApiUserSlice';
+import {TouchableNativeFeedback} from 'react-native';
 
 type NavigationPropsT = NativeStackScreenProps<RootStackParamList, 'SignIn'>;
 
@@ -42,6 +43,10 @@ const SignInScreen = ({navigation}: NavigationPropsT) => {
     }
   };
 
+  const goToSignUpHandler = () => {
+    navigation.navigate('SignUp');
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Sign In</Text>
@@ -65,6 +70,21 @@ const SignInScreen = ({navigation}: NavigationPropsT) => {
         onPress={SignInHandler}
         style={styles.button}
       />
+      <View style={styles.textContainer}>
+        <Text style={{fontWeight: '500', fontSize: 16}}>
+          Don't have an account?{'  '}
+        </Text>
+        <TouchableOpacity onPress={goToSignUpHandler}>
+          <Text
+            style={{
+              fontWeight: '500',
+              fontSize: 16,
+              color: constants.PrimaryColor,
+            }}>
+            Signup
+          </Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -88,6 +108,12 @@ const styles = StyleSheet.create({
   button: {
     width: '60%',
     marginTop: 40,
+  },
+  textContainer: {
+    marginTop: 16,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 export default SignInScreen;

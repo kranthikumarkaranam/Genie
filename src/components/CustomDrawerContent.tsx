@@ -10,6 +10,7 @@ import constants from '../util/constants';
 import {TouchableNativeFeedback} from 'react-native';
 import {clearAll} from '../store/MyUserSlice';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import {StackActions} from '@react-navigation/native';
 
 const CustomDrawerContent = (props: DrawerContentComponentProps) => {
   const {firstName, lastName, image} = useAppSelector(state => state.MyUser);
@@ -24,7 +25,7 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
   const LogOutHandler = () => {
     // Remove all store data and navigate to Login Screen on logout
     dispatch(clearAll());
-    props.navigation.navigate('Auth', {screen: 'SignIn'});
+    props.navigation.dispatch(StackActions.replace('Auth', {screen: 'SignIn'}));
   };
 
   return (

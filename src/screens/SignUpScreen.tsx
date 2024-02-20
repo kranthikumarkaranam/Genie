@@ -11,6 +11,7 @@ import {store} from '../store/store';
 import {setUser} from '../store/MyUserSlice';
 import {validateEmail, validatePassword} from '../util/UtilityFunctions';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import {TouchableOpacity} from 'react-native';
 
 type NavigationPropsT = NativeStackScreenProps<RootStackParamList, 'SignUp'>;
 
@@ -58,6 +59,10 @@ const SignUpScreen = ({navigation}: NavigationPropsT) => {
     }
   };
 
+  const goToSignInHandler = () => {
+    navigation.navigate('SignIn');
+  };
+
   return (
     <GestureHandlerRootView style={{flex: 1, backgroundColor: 'white'}}>
       <ScrollView>
@@ -100,6 +105,21 @@ const SignUpScreen = ({navigation}: NavigationPropsT) => {
             onPress={SignUpHandler}
             style={styles.button}
           />
+          <View style={styles.textContainer}>
+            <Text style={{fontWeight: '500', fontSize: 16}}>
+              Already have an account?{'  '}
+            </Text>
+            <TouchableOpacity onPress={goToSignInHandler}>
+              <Text
+                style={{
+                  fontWeight: '500',
+                  fontSize: 16,
+                  color: constants.PrimaryColor,
+                }}>
+                Login
+              </Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </ScrollView>
     </GestureHandlerRootView>
@@ -128,6 +148,12 @@ const styles = StyleSheet.create({
   },
   avatar: {
     marginBottom: 20,
+  },
+  textContainer: {
+    marginTop: 16,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
