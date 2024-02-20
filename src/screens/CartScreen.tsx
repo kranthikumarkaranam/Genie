@@ -47,14 +47,6 @@ const CartScreen = ({navigation}: NavigationPropsT) => {
     return total + product.price * product.cartCount;
   }, 0);
 
-  const badgeCount = filteredCartProducts.length;
-
-  useEffect(() => {
-    navigation.setOptions({
-      tabBarBadge: badgeCount,
-    });
-  }, [navigation, badgeCount]);
-
   return (
     <>
       <ScreenHead title="My Cart" />

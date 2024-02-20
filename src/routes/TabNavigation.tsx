@@ -9,12 +9,21 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import Header from '../components/Header';
+import {useAppSelector} from '../store/pre-Typed';
+import {productApiT} from '../types/api-Types';
 
 const Tab = createBottomTabNavigator<RootStackParamList>();
 
 type NavigationPropsT = DrawerScreenProps<RootStackParamList, 'Home'>;
 
 export const BottomTabs = ({navigation}: NavigationPropsT) => {
+  const products = useAppSelector(state => state.Products.entities);
+  const filteredCartProducts = products.filter(
+    (product: productApiT) => product.isInCart === true,
+  );
+
+  const badgeCount = filteredCartProducts.length;
+
   const drawerMenuHandler = () => {
     navigation.toggleDrawer();
   };
@@ -61,6 +70,7 @@ export const BottomTabs = ({navigation}: NavigationPropsT) => {
           component={CartScreen}
           options={{
             tabBarLabel: 'Cart',
+            tabBarBadge: badgeCount,
             tabBarIcon: ({color, size, focused}) => (
               <MaterialIcons
                 name={focused ? 'shopping-cart' : 'shopping-cart'}
