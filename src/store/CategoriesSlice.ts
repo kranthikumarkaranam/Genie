@@ -1,4 +1,4 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 import {CategoriesApiT, productApiT, productsApiT} from '../types/api-Types';
 import {createAppAsyncThunk} from './pre-Typed';
 import {storeT} from '../types/store-Types';
@@ -54,7 +54,71 @@ export const FetchAllProductsByCategory = createAppAsyncThunk<
 const CategoriesSlice = createSlice({
   name: 'Categories',
   initialState: initialCategoriesState,
-  reducers: {},
+  reducers: {
+    addProductToCart_CategoriesSlice: (
+      state,
+      action: PayloadAction<number>,
+    ) => {
+      const id = action.payload;
+      console.log('added product id => ', id);
+
+      // Find the category that contains the product
+      const categoryWithProduct = state.entities.find(category =>
+        category.products.some(product => product.id === id),
+      );
+
+      // If the category is found, then find the product in the array of products
+      if (categoryWithProduct) {
+        const product = categoryWithProduct.products.find(
+          product => product.id === id,
+        );
+        if (!product) {
+          throw new Error(`No product with ID ${id}`);
+        } else {
+          product.isInCart = true;
+          product.cartCount = (product.cartCount ?? 0) + 1; // Initialize cartCount to 0 if it's undefined
+        }
+        console.log(
+          'state after adding product => ',
+          product.isInCart,
+          product.cartCount,
+        );
+      }
+    },
+    removeProductFromCart_CategoriesSlice: (
+      state,
+      action: PayloadAction<number>,
+    ) => {
+      const id = action.payload;
+      console.log('removed product id => ', id);
+
+      // Find the category that contains the product
+      const categoryWithProduct = state.entities.find(category =>
+        category.products.some(product => product.id === id),
+      );
+
+      // If the category is found, then find the product in the array of products
+      if (categoryWithProduct) {
+        const product = categoryWithProduct.products.find(
+          product => product.id === id,
+        );
+        if (!product) {
+          throw new Error(`No product with ID ${id}`);
+        } else if (product.isInCart && product.cartCount > 0) {
+          if (product.cartCount === 1) {
+            product.isInCart = false;
+          }
+          product.cartCount -= 1;
+        }
+        console.log(
+          'state after removing product => ',
+          product.isInCart,
+          product.cartCount,
+        );
+      }
+    },
+    clearAll_CategoriesSlice: () => initialCategoriesState,
+  },
   extraReducers: builder => {
     builder
       .addCase(FetchAllCategories.pending, (state, action) => {
@@ -140,5 +204,9 @@ const CategoriesSlice = createSlice({
   },
 });
 
-export const {} = CategoriesSlice.actions;
+export const {
+  addProductToCart_CategoriesSlice,
+  removeProductFromCart_CategoriesSlice,
+  clearAll_CategoriesSlice,
+} = CategoriesSlice.actions;
 export default CategoriesSlice.reducer;

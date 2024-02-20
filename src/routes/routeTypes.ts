@@ -9,6 +9,10 @@ export type RootStackParamList = {
   };
   ProductDetail: {
     productID: number;
+    isComingFromHome?: boolean;
+  };
+  HomeProductDetail: {
+    productID: number;
   };
   CartTab: undefined;
   MyHome: undefined;
@@ -18,8 +22,4 @@ export type RootStackParamList = {
   HomeTab: undefined;
   Categories: undefined;
   CategoriesTab: undefined;
-  HomeProductDetail: {
-    productID: number;
-  };
-  HomeProductsByCategory: undefined;
 };

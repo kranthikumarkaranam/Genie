@@ -70,7 +70,7 @@ const ApiUserSlice = createSlice({
   name: 'ApiUser',
   initialState: initialApiUserState,
   reducers: {
-    // CLEAR_ALL: (state, action) => initialApiUserState,
+    clearAll_ApiUserSlice: () => initialApiUserState,
   },
   extraReducers: builder => {
     // When we send a request, `ValidateUser.pending` is being fired:
@@ -118,7 +118,7 @@ const ApiUserSlice = createSlice({
   },
 });
 
-export const {} = ApiUserSlice.actions;
+export const {clearAll_ApiUserSlice} = ApiUserSlice.actions;
 export default ApiUserSlice.reducer;
 
 /* =======  Write selectors here if you want ======= */

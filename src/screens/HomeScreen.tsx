@@ -12,7 +12,7 @@ import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 import {RootStackParamList} from '../routes/routeTypes';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {FetchAllProducts} from '../store/ProductsSlice';
+import {FetchAllProducts, removeProductFromCart} from '../store/ProductsSlice';
 import {store} from '../store/store';
 import {useAppDispatch, useAppSelector} from '../store/pre-Typed';
 import {productApiT, productsApiT} from '../types/api-Types';
@@ -26,8 +26,7 @@ const HomeScreen = ({navigation}: NavigationPropsT) => {
   const [searchData, setSearchData] = useState<productApiT[]>([]);
   const [showSearchResults, setShowSearchResults] = useState<boolean>(false);
   const dispatch = useAppDispatch();
-  const products = useAppSelector(state => state.Products.entities.byId);
-  const ProductItems = Object.values(products);
+  const products = useAppSelector(state => state.Products.entities);
   useEffect(() => {
     FetchAllProductsHandler();
   }, []);
@@ -42,7 +41,7 @@ const HomeScreen = ({navigation}: NavigationPropsT) => {
       );
       console.log(
         'STATE RESULT from FetchAllProductsHandler   ----  first product title ---->  ',
-        store.getState().Products.entities.byId[1].title,
+        store.getState().Products.entities[1].title,
       );
     } else {
       if (resultAction.payload) {
@@ -66,11 +65,18 @@ const HomeScreen = ({navigation}: NavigationPropsT) => {
     setShowSearchResults(true);
   };
 
+  // const itemPressHandler = (id: number) => {
+  //   navigation.navigate('HomeProductDetail', {
+  //     productID: id,
+  //   });
+  // };
   const itemPressHandler = (id: number) => {
     navigation.navigate('HomeProductDetail', {
       productID: id,
+      // isComingFromHome: true,
     });
   };
+
   const backPressHandler = () => {
     setShowSearchResults(false);
     setSearchTerm('');
@@ -80,6 +86,11 @@ const HomeScreen = ({navigation}: NavigationPropsT) => {
   const ImagePressHandler = (categoryName: string) => {
     console.log('categoryName', categoryName);
     navigation.navigate('ProductsByCategory', {categoryName});
+  };
+
+  const goToCartHandler = (productId: number) => {
+    navigation.navigate('CartTab');
+    // dispatch(removeProductFromCart(productId));
   };
 
   return (
@@ -93,7 +104,11 @@ const HomeScreen = ({navigation}: NavigationPropsT) => {
               onChangeText={searchTerm => setSearchTerm(searchTerm)}
               onPress={searchHandler}
             />
-            <ProductList data={ProductItems} itemPress={itemPressHandler} />
+            <ProductList
+              data={products}
+              itemPress={itemPressHandler}
+              goToCart={goToCartHandler}
+            />
           </>
         )}
         {showSearchResults && (
@@ -120,7 +135,11 @@ const HomeScreen = ({navigation}: NavigationPropsT) => {
           <Text style={styles.notFound}>No results found.</Text>
         )}
         {showSearchResults && searchData.length > 0 && (
-          <ProductList data={searchData} itemPress={itemPressHandler} />
+          <ProductList
+            data={searchData}
+            itemPress={itemPressHandler}
+            goToCart={goToCartHandler}
+          />
         )}
       </View>
     </>

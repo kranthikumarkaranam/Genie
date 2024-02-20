@@ -3,6 +3,7 @@ import {
   StyleProp,
   StyleSheet,
   Text,
+  TextStyle,
   TouchableOpacity,
   ViewStyle,
 } from 'react-native';
@@ -11,13 +12,23 @@ import constants from '../util/constants';
 interface CustomButtonT {
   onPress: () => void;
   title: string;
-  style?: StyleProp<ViewStyle>;
+  containerStyle?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
 }
-const CustomButton = ({title, onPress, style}: CustomButtonT) => {
+const CustomButton = ({
+  title,
+  onPress,
+  containerStyle,
+  textStyle,
+}: CustomButtonT) => {
   return (
-    <TouchableOpacity onPress={onPress} style={[styles.button, style]}>
-      <Text style={styles.buttonText}>{title}</Text>
-    </TouchableOpacity>
+    <>
+      <TouchableOpacity
+        onPress={onPress}
+        style={[styles.button, containerStyle]}>
+        <Text style={[styles.buttonText, textStyle]}>{title}</Text>
+      </TouchableOpacity>
+    </>
   );
 };
 

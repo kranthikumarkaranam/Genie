@@ -13,14 +13,10 @@ type NavigationPropsT = NativeStackScreenProps<
 >;
 
 const ProductDetailScreen = ({route, navigation}: NavigationPropsT) => {
-  const {productID} = route.params;
+  const {productID, isComingFromHome} = route.params;
 
-  const CategoriesList = useAppSelector(state => state.Categories.entities);
-  const category = CategoriesList.find(category =>
-    category.products.find(product => product.id === productID),
-  );
-
-  const product = category?.products.find(product => product.id === productID);
+  const products = useAppSelector(state => state.Products.entities);
+  const product = products.find(p => p.id === productID);
 
   let productDetails: productApiT = {
     id: 0,
@@ -34,9 +30,11 @@ const ProductDetailScreen = ({route, navigation}: NavigationPropsT) => {
     category: '',
     thumbnail: '',
     images: [],
+    isInCart: false,
+    cartCount: 0,
   };
   // Check if category & product are undefined
-  if (product !== undefined && category !== undefined) {
+  if (product !== undefined) {
     productDetails = product;
   } else {
     // Handle the case when they are undefined
@@ -44,8 +42,13 @@ const ProductDetailScreen = ({route, navigation}: NavigationPropsT) => {
   }
 
   const backPressHandler = () => {
+    // if (isComingFromHome) {
+    //   navigation.navigate('HomeTab');
+    //   return;
+    // }
     navigation.goBack();
   };
+
   return (
     <>
       <ScreenHead isBack={true} backPress={backPressHandler} isLastScreen />

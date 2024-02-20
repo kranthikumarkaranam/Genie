@@ -103,7 +103,7 @@ const SignUpScreen = ({navigation}: NavigationPropsT) => {
           <CustomButton
             title="Sign Up"
             onPress={SignUpHandler}
-            style={styles.button}
+            containerStyle={styles.button}
           />
           <View style={styles.textContainer}>
             <Text style={{fontWeight: '500', fontSize: 16}}>

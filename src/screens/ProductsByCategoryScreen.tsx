@@ -45,6 +45,7 @@ const ProductsByCategoryScreen = ({route, navigation}: NavigationPropsT) => {
       FetchAllProductsByCategory(categoryName),
     );
     if (FetchAllProductsByCategory.fulfilled.match(resultAction)) {
+      // dispatch(setProducts(resultAction.payload));
       // Alert.alert('Success', 'Data fetched successfully');
       console.log(
         'FETCH RESULT from  FetchAllProductsByCategoryHandler ----  first product title ---->  ',
@@ -75,6 +76,9 @@ const ProductsByCategoryScreen = ({route, navigation}: NavigationPropsT) => {
       productID: id,
     });
   };
+  const goToCartHandler = (productId: number) => {
+    navigation.navigate('CartTab');
+  };
 
   return (
     <>
@@ -83,7 +87,11 @@ const ProductsByCategoryScreen = ({route, navigation}: NavigationPropsT) => {
         isBack={true}
         backPress={backPressHandler}
       />
-      <ProductList data={ProductsList} itemPress={itemPressHandler} />
+      <ProductList
+        data={ProductsList}
+        itemPress={itemPressHandler}
+        goToCart={goToCartHandler}
+      />
     </>
   );
 };

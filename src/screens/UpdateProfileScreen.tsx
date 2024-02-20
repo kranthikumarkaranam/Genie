@@ -98,7 +98,7 @@ const UpdateProfileScreen = ({route, navigation}: NavigationPropsT) => {
           <CustomButton
             title="Update"
             onPress={UpdateHandler}
-            style={styles.button}
+            containerStyle={styles.button}
           />
         </View>
       </ScrollView>

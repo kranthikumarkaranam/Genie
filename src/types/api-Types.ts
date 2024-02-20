@@ -31,6 +31,8 @@ export interface productApiT {
   category: string;
   thumbnail: string;
   images: string[];
+  isInCart: boolean;
+  cartCount: number;
 }
 
 export interface productsApiT {

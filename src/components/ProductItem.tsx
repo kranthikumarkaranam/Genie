@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Image,
   TouchableNativeFeedback,
@@ -12,11 +12,21 @@ import {
   roundToOneDecimalPlace,
 } from '../util/UtilityFunctions';
 import {productApiT} from '../types/api-Types';
+import CustomButton from './CustomButton';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useAppDispatch} from '../store/pre-Typed';
+import {store} from '../store/store';
+import {addProductToCart_ProductsSlice} from '../store/ProductsSlice';
+import {addProductToCart_CategoriesSlice} from '../store/CategoriesSlice';
 interface ProductItemT {
   data: productApiT;
-  onPress: (id: number) => void;
+  onPress: (productId: number) => void;
+  goToCart: (productId: number) => void;
 }
-const ProductItem = ({data, onPress}: ProductItemT) => {
+const ProductItem = ({data, onPress, goToCart}: ProductItemT) => {
+  const dispatch = useAppDispatch();
+  const [isAddedToCart, setIsAddedToCart] = useState<boolean>(false);
+
   const originalPrice = calculateOriginalPrice(
     data.price,
     data.discountPercentage,
@@ -25,6 +35,20 @@ const ProductItem = ({data, onPress}: ProductItemT) => {
   const roundedDiscountPercentage = roundToOneDecimalPlace(
     data.discountPercentage,
   );
+
+  const addToCartHandler = (productId: number) => {
+    setIsAddedToCart(true);
+    // Add the item to cart in local storage
+    // const cartItems = JSON.parse(
+    //   (AsyncStorage.getItem('cartItems') as Promise<string | null>).then((value) => value ?? '[]'),
+    // ) as Array<number>;
+    // if (!cartItems.includes(productId)) {
+    //   cartItems.push(productId);
+    //   AsyncStorage.setItem('cartItems', JSON.stringify(cartItems));
+    // }
+    dispatch(addProductToCart_ProductsSlice(productId));
+    dispatch(addProductToCart_CategoriesSlice(productId));
+  };
 
   return (
     <TouchableNativeFeedback onPress={() => onPress(data.id)}>
@@ -57,6 +81,27 @@ const ProductItem = ({data, onPress}: ProductItemT) => {
           <Text style={styles.description} numberOfLines={1}>
             {data.description}
           </Text>
+          <View
+            style={{
+              width: '100%',
+              marginTop: 18,
+              height: 40,
+            }}>
+            <CustomButton
+              title={isAddedToCart ? 'Go to Cart' : 'Add to Cart'}
+              onPress={
+                isAddedToCart
+                  ? () => goToCart(data.id)
+                  : () => addToCartHandler(data.id)
+              }
+              containerStyle={
+                isAddedToCart
+                  ? styles.goCartButtonContainer
+                  : styles.addCartButtonContainer
+              }
+              textStyle={styles.cartButtonText}
+            />
+          </View>
         </View>
       </View>
     </TouchableNativeFeedback>
@@ -67,7 +112,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
-    maxHeight: 180,
+    maxHeight: 220,
     width: '100%',
     backgroundColor: 'white',
     borderRadius: 8,
@@ -137,6 +182,27 @@ const styles = StyleSheet.create({
     marginLeft: 2,
     color: '#898e8e',
     textTransform: 'capitalize',
+  },
+  addCartButtonContainer: {
+    backgroundColor: '#ffe100',
+    paddingVertical: 8,
+    paddingHorizontal: 0,
+    borderRadius: 8,
+    elevation: 4,
+  },
+  cartButtonText: {
+    color: '#010f1a',
+    fontSize: 14,
+    fontWeight: '400',
+  },
+  goCartButtonContainer: {
+    backgroundColor: '#ececec',
+    borderWidth: 0.3,
+    borderColor: '#898e8e',
+    paddingVertical: 8,
+    paddingHorizontal: 0,
+    borderRadius: 8,
+    elevation: 4,
   },
 });
 

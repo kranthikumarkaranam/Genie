@@ -4,7 +4,6 @@ import type {DrawerScreenProps} from '@react-navigation/drawer';
 import {RootStackParamList} from '../routes/routeTypes';
 import Header from '../components/Header';
 import {Images, MyOrders} from '../util/data';
-import CustomCarousel from '../components/CustomCarousel';
 import ImageCarousel from '../components/ImageCarousel';
 
 type NavigationPropsT = DrawerScreenProps<RootStackParamList, 'MyOrders'>;

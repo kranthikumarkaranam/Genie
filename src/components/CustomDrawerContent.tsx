@@ -8,9 +8,12 @@ import {Image, StyleSheet, Text, View} from 'react-native';
 import {useAppDispatch, useAppSelector} from '../store/pre-Typed';
 import constants from '../util/constants';
 import {TouchableNativeFeedback} from 'react-native';
-import {clearAll} from '../store/MyUserSlice';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {StackActions} from '@react-navigation/native';
+import {clearAll_MyUserSlice} from '../store/MyUserSlice';
+import {clearAll_ApiUserSlice} from '../store/ApiUserSlice';
+import {clearAll_ProductsSlice} from '../store/ProductsSlice';
+import {clearAll_CategoriesSlice} from '../store/CategoriesSlice';
 
 const CustomDrawerContent = (props: DrawerContentComponentProps) => {
   const {firstName, lastName, image} = useAppSelector(state => state.MyUser);
@@ -24,7 +27,11 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
   };
   const LogOutHandler = () => {
     // Remove all store data and navigate to Login Screen on logout
-    dispatch(clearAll());
+    dispatch(clearAll_MyUserSlice());
+    dispatch(clearAll_ApiUserSlice());
+    dispatch(clearAll_ProductsSlice());
+    dispatch(clearAll_CategoriesSlice());
+
     props.navigation.dispatch(StackActions.replace('Auth', {screen: 'SignIn'}));
   };
 

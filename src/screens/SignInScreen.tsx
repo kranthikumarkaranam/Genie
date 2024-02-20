@@ -68,7 +68,7 @@ const SignInScreen = ({navigation}: NavigationPropsT) => {
       <CustomButton
         title="Log In"
         onPress={SignInHandler}
-        style={styles.button}
+        containerStyle={styles.button}
       />
       <View style={styles.textContainer}>
         <Text style={{fontWeight: '500', fontSize: 16}}>

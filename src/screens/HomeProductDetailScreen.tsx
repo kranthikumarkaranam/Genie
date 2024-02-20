@@ -16,9 +16,8 @@ type NavigationPropsT = NativeStackScreenProps<
 const HomeProductDetailScreen = ({route, navigation}: NavigationPropsT) => {
   const {productID} = route.params;
 
-  const products = useAppSelector(state => state.Products.entities.byId);
-  const ProductItems = Object.values(products);
-  const product = ProductItems.find(p => p.id === productID);
+  const products = useAppSelector(state => state.Products.entities);
+  const product = products.find(p => p.id === productID);
 
   let productDetails: productApiT = {
     id: 0,
@@ -32,6 +31,8 @@ const HomeProductDetailScreen = ({route, navigation}: NavigationPropsT) => {
     category: '',
     thumbnail: '',
     images: [],
+    isInCart: false,
+    cartCount: 0,
   };
   // Check if category & product are undefined
   if (product !== undefined) {
