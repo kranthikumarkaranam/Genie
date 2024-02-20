@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 type ScreenHeadT = {
   title?: string;
-  isBack: boolean;
+  isBack?: boolean;
   backPress?: () => void;
   isLastScreen?: boolean;
 };
@@ -48,7 +48,7 @@ const ScreenHead = ({title, isBack, backPress, isLastScreen}: ScreenHeadT) => {
           )}
         </>
       ) : (
-        <Text style={styles.text}>{title}</Text>
+        <Text style={[styles.text, {marginLeft: 10}]}>{title}</Text>
       )}
     </View>
   );

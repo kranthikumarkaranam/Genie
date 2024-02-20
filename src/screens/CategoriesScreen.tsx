@@ -126,7 +126,7 @@ const CategoriesScreen = ({navigation}: NavigationPropsT) => {
 
   return (
     <>
-      <ScreenHead title="All Categories" isBack={false} />
+      <ScreenHead title="All Categories" />
       <FlatList
         data={CategoriesList}
         renderItem={renderItem}
