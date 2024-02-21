@@ -49,14 +49,10 @@ const HomeProductDetailScreen = ({route, navigation}: NavigationPropsT) => {
 
   const goToCartHandler = (productId: number) => {
     navigation.navigate('CartTab', {productID: productId});
-    // dispatch(removeProductFromCart_ProductsSlice(productId));
-    // dispatch(removeProductFromCart_CategoriesSlice(productId));
   };
 
   const buyNowHandler = (productId: number) => {
     navigation.navigate('CartTab', {productID: productId});
-    // dispatch(removeProductFromCart_ProductsSlice(productId));
-    // dispatch(removeProductFromCart_CategoriesSlice(productId));
   };
 
   return (

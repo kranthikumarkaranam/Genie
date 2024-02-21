@@ -3,3 +3,8 @@ export interface storeT {
   currentRequestId?: string | null;
   error: string | null | undefined;
 }
+
+export interface asyncT {
+  productId: number;
+  quantity: number;
+}

@@ -17,7 +17,7 @@ import {useAppDispatch, useAppSelector} from '../store/pre-Typed';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import constants from '../util/constants';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {
   addProductToCart_ProductsSlice,
   removeProductFromCart_ProductsSlice,
@@ -26,6 +26,8 @@ import {
   addProductToCart_CategoriesSlice,
   removeProductFromCart_CategoriesSlice,
 } from '../store/CategoriesSlice';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {asyncT} from '../types/store-Types';
 
 interface CartItemT {
   data: productApiT;
@@ -39,16 +41,80 @@ const CartItem = ({data}: CartItemT) => {
     data.discountPercentage,
   );
 
-  const plusPressHandler = () => {
+  const plusPressHandler = async (productId: number) => {
     setCartCount(prevValue => prevValue + 1);
+
+    try {
+      const jsonValue = await AsyncStorage.getItem('cartItems');
+      const storedCartItems: asyncT[] | null =
+        jsonValue != null ? JSON.parse(jsonValue) : null;
+      if (storedCartItems) {
+        const existingProduct = storedCartItems.find(
+          item => item.productId === productId,
+        );
+        if (existingProduct) {
+          existingProduct.quantity += 1;
+        }
+      }
+      try {
+        const jsonValue = JSON.stringify(storedCartItems);
+        await AsyncStorage.setItem('cartItems', jsonValue);
+
+        console.log('cartItems in asyncStorage => ', storedCartItems);
+      } catch (e) {
+        // saving error
+        console.error('Error saving cart items:', e);
+      }
+    } catch (e) {
+      // error reading value
+      console.error('Error reading cart items:', e);
+    }
     dispatch(addProductToCart_ProductsSlice(data.id));
     dispatch(addProductToCart_CategoriesSlice(data.id));
   };
-  const minusPressHandler = () => {
+  const minusPressHandler = async (productId: number) => {
     setCartCount(prevValue => prevValue - 1);
+
+    try {
+      const jsonValue = await AsyncStorage.getItem('cartItems');
+      const storedCartItems: asyncT[] | null =
+        jsonValue != null ? JSON.parse(jsonValue) : null;
+      let cartItems: asyncT[] | null = storedCartItems;
+      if (storedCartItems) {
+        const existingProduct = storedCartItems.find(
+          item => item.productId === productId,
+        );
+        if (existingProduct) {
+          if (existingProduct.quantity === 1) {
+            const updatedCartItems = storedCartItems.filter(
+              item => item.productId !== productId,
+            );
+            cartItems = updatedCartItems;
+          } else {
+            existingProduct.quantity -= 1;
+          }
+        }
+      }
+      try {
+        const jsonValue = JSON.stringify(cartItems);
+        await AsyncStorage.setItem('cartItems', jsonValue);
+
+        console.log('cartItems in asyncStorage => ', cartItems);
+      } catch (e) {
+        // saving error
+        console.error('Error saving cart items:', e);
+      }
+    } catch (e) {
+      // error reading value
+      console.error('Error reading cart items:', e);
+    }
     dispatch(removeProductFromCart_ProductsSlice(data.id));
     dispatch(removeProductFromCart_CategoriesSlice(data.id));
   };
+
+  useEffect(() => {
+    console.log('cartItem data => ', data.price);
+  }, [data]);
 
   return (
     <>
@@ -63,19 +129,27 @@ const CartItem = ({data}: CartItemT) => {
         </View>
         <View style={styles.textContainer}>
           <Text style={styles.title} numberOfLines={2}>
-            {data.title}
+            id= {data.id}
+            {/* {data.title} */}
+            cartC=
+            {data.cartCount === undefined ? '0' : `${data.cartCount}`}
+            bool={data.isInCart === undefined ? '0' : `${data.isInCart}`}
+            price={data.price}
           </Text>
 
           <View style={styles.priceContainer}>
-            <Text style={styles.price}>${data.price * cartCount}</Text>
+            <Text style={styles.price}>
+              ${cartCount === 0 ? data.price : data.price * cartCount}$
+              {/* {data.price} */}
+            </Text>
             <Text style={[styles.mrp, {textDecorationLine: 'line-through'}]}>
-              {`$${originalPrice * cartCount}`}
+              ${cartCount === 0 ? originalPrice : originalPrice * cartCount}
             </Text>
           </View>
           <View style={styles.buttonsContainer}>
-            <TouchableNativeFeedback onPress={minusPressHandler}>
+            <TouchableNativeFeedback onPress={() => minusPressHandler(data.id)}>
               <View style={[styles.icon, {borderRightWidth: 0.8}]}>
-                {cartCount === 1 ? (
+                {cartCount === 0 || cartCount === 1 ? (
                   <Ionicons name="trash-outline" size={20} color="#393939" />
                 ) : (
                   <AntDesign name="minus" size={22} color="#393939" />
@@ -89,10 +163,10 @@ const CartItem = ({data}: CartItemT) => {
                   fontWeight: '600',
                   color: constants.PrimaryColor,
                 }}>
-                {cartCount}
+                {cartCount === 0 ? 1 : cartCount}
               </Text>
             </View>
-            <TouchableNativeFeedback onPress={plusPressHandler}>
+            <TouchableNativeFeedback onPress={() => plusPressHandler(data.id)}>
               <View style={[styles.icon, {borderLeftWidth: 0.8}]}>
                 <AntDesign name="plus" size={22} color="#393939" />
               </View>

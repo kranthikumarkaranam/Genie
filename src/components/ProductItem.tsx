@@ -14,16 +14,18 @@ import {
 } from '../util/UtilityFunctions';
 import {productApiT} from '../types/api-Types';
 import CustomButton from './CustomButton';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useAppDispatch, useAppSelector} from '../store/pre-Typed';
 import {store} from '../store/store';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {addProductToCart_ProductsSlice} from '../store/ProductsSlice';
 import {addProductToCart_CategoriesSlice} from '../store/CategoriesSlice';
+import {asyncT} from '../types/store-Types';
 interface ProductItemT {
   data: productApiT;
   onPress: (productId: number) => void;
   goToCart: (productId: number) => void;
 }
+
 const ProductItem = ({data, onPress, goToCart}: ProductItemT) => {
   const dispatch = useAppDispatch();
   const products = useAppSelector(state => state.Products.entities);
@@ -67,16 +69,39 @@ const ProductItem = ({data, onPress, goToCart}: ProductItemT) => {
     data.discountPercentage,
   );
 
-  const addToCartHandler = (productId: number) => {
-    // setIsAddedToCart(true);
-    // Add the item to cart in local storage
-    // const cartItems = JSON.parse(
-    //   (AsyncStorage.getItem('cartItems') as Promise<string | null>).then((value) => value ?? '[]'),
-    // ) as Array<number>;
-    // if (!cartItems.includes(productId)) {
-    //   cartItems.push(productId);
-    //   AsyncStorage.setItem('cartItems', JSON.stringify(cartItems));
-    // }
+  const addToCartHandler = async (productId: number) => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('cartItems');
+      const storedCartItems: asyncT[] | null =
+        jsonValue != null ? JSON.parse(jsonValue) : null;
+      let cartItems: asyncT[] = [];
+      if (storedCartItems === null) {
+        cartItems = [];
+        cartItems.push({productId: productId, quantity: 1});
+      } else {
+        cartItems = storedCartItems;
+        const existingProduct = cartItems.find(
+          item => item.productId === productId,
+        );
+        if (existingProduct) {
+          existingProduct.quantity += 1;
+        } else {
+          cartItems.push({productId: productId, quantity: 1});
+        }
+      }
+      try {
+        const jsonValue = JSON.stringify(cartItems);
+        await AsyncStorage.setItem('cartItems', jsonValue);
+
+        console.log('cartItems in asyncStorage => ', cartItems);
+      } catch (e) {
+        // saving error
+        console.error('Error saving cart items:', e);
+      }
+    } catch (e) {
+      // error reading value
+      console.error('Error reading cart items:', e);
+    }
     dispatch(addProductToCart_ProductsSlice(productId));
     dispatch(addProductToCart_CategoriesSlice(productId));
   };

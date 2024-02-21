@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {FlatList, ScrollView, StyleSheet, Text, View} from 'react-native';
 import CartItem from '../components/CartItem';
 import ScreenHead from '../components/ScreenHead';
@@ -16,44 +16,81 @@ import {
   roundToOneDecimalPlace,
 } from '../util/UtilityFunctions';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {asyncT} from '../types/store-Types';
+import {Button} from 'react-native';
 
 type NavigationPropsT = BottomTabScreenProps<RootStackParamList, 'CartTab'>;
 
 const CartScreen = ({navigation}: NavigationPropsT) => {
   const products = useAppSelector(state => state.Products.entities);
-  const filteredCartProducts = products.filter(
-    (product: productApiT) => product.isInCart === true,
-  );
+
+  const [cartItems, setCartItems] = useState<productApiT[]>([]);
+
+  useEffect(() => {
+    const fetchAsyncStorageCartItems = async () => {
+      try {
+        const jsonValue = await AsyncStorage.getItem('cartItems');
+        const storedCartItems: {productId: number; quantity: number}[] | null =
+          jsonValue != null ? JSON.parse(jsonValue) : null;
+
+        if (storedCartItems) {
+          const filteredProducts = products.filter(product =>
+            storedCartItems.some(item => item.productId === product.id),
+          );
+          setCartItems(filteredProducts);
+        }
+      } catch (e) {
+        console.error('Error reading cart items:', e);
+      }
+    };
+
+    fetchAsyncStorageCartItems();
+  }, [products]);
+
+  useEffect(() => {
+    console.log(
+      'cartItems local state => ',
+      cartItems,
+      // cartItems.map(i => i.title),
+    );
+  }, [cartItems]);
 
   const renderItem = ({item}: {item: productApiT}) => <CartItem data={item} />;
 
   const shopNowHandler = () => {
-    console.log('shop now clicked');
     navigation.navigate('CategoriesTab');
   };
 
-  const TotalOfOriginalPrices = filteredCartProducts.reduce(
-    (total, product) => {
-      const originalPrice = calculateOriginalPrice(
-        product.price,
-        product.discountPercentage,
-      );
-      return total + originalPrice * product.cartCount;
-    },
-    0,
-  );
+  const TotalOfOriginalPrices = cartItems.reduce((total, product) => {
+    const originalPrice = calculateOriginalPrice(
+      product.price,
+      product.discountPercentage,
+    );
+    return total + originalPrice * product.cartCount;
+  }, 0);
 
-  const TotalOfProductPrices = filteredCartProducts.reduce((total, product) => {
+  const TotalOfProductPrices = cartItems.reduce((total, product) => {
     return total + product.price * product.cartCount;
   }, 0);
+
+  const clearAsyncStorage = async () => {
+    try {
+      await AsyncStorage.clear();
+      console.log('AsyncStorage cleared successfully');
+    } catch (e) {
+      console.error('Error clearing AsyncStorage:', e);
+    }
+  };
 
   return (
     <>
       <ScreenHead title="My Cart" />
+      <Button title="clearAsyncStorage" onPress={clearAsyncStorage}></Button>
       <GestureHandlerRootView style={{flex: 1, backgroundColor: 'white'}}>
         <FlatList
           renderItem={renderItem}
-          data={filteredCartProducts}
+          data={cartItems}
           keyExtractor={item => item.id.toString()}
           ListEmptyComponent={() => {
             return (
@@ -75,16 +112,16 @@ const CartScreen = ({navigation}: NavigationPropsT) => {
             );
           }}
           ListFooterComponent={() => {
-            return filteredCartProducts.length > 0 ? (
+            return cartItems.length > 0 ? (
               <CartFooter
-                noOfItems={filteredCartProducts.length}
+                noOfItems={cartItems.length}
                 TotalOfOriginalPrices={TotalOfOriginalPrices}
                 TotalOfProductPrices={TotalOfProductPrices}
               />
             ) : null;
           }}
         />
-        {filteredCartProducts.length > 0 ? (
+        {cartItems.length > 0 ? (
           <PlaceOrder
             TotalOfOriginalPrices={TotalOfOriginalPrices}
             TotalOfProductPrices={TotalOfProductPrices}
