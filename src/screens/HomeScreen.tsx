@@ -14,6 +14,7 @@ import {RootStackParamList} from '../routes/routeTypes';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {
   FetchAllProducts,
+  FetchCartItemsFromAsyncStorage,
   removeProductFromCart_ProductsSlice,
 } from '../store/ProductsSlice';
 import {store} from '../store/store';
@@ -32,8 +33,35 @@ const HomeScreen = ({navigation}: NavigationPropsT) => {
   const dispatch = useAppDispatch();
   const products = useAppSelector(state => state.Products.entities);
   useEffect(() => {
-    FetchAllProductsHandler();
+    FetchAllProductsHandler().then(() => {
+      FetchCartItemsFromAsyncStorageHandler();
+    });
   }, []);
+
+  const FetchCartItemsFromAsyncStorageHandler = async () => {
+    const resultAction = await dispatch(FetchCartItemsFromAsyncStorage());
+    if (FetchCartItemsFromAsyncStorage.fulfilled.match(resultAction)) {
+      // Alert.alert('Success', 'Data fetched successfully');
+      console.log(
+        'FETCH RESULT  from FetchCartItemsFromAsyncStorageHandler  --->  ',
+        resultAction.payload,
+      );
+      console.log(
+        'STATE RESULT from FetchCartItemsFromAsyncStorageHandler ---->  1, 2 elements cartCount --->  ',
+        store.getState().Products.entities[0].cartCount,
+        store.getState().Products.entities[1].cartCount,
+      );
+    } else {
+      if (resultAction.payload) {
+        Alert.alert(
+          'Failure - payload error',
+          `${resultAction.payload.errorMessage}`,
+        );
+      } else {
+        Alert.alert('Failure - action error', `${resultAction.error.message}`);
+      }
+    }
+  };
 
   const FetchAllProductsHandler = async () => {
     const resultAction = await dispatch(FetchAllProducts(0));
@@ -69,15 +97,9 @@ const HomeScreen = ({navigation}: NavigationPropsT) => {
     setShowSearchResults(true);
   };
 
-  // const itemPressHandler = (id: number) => {
-  //   navigation.navigate('HomeProductDetail', {
-  //     productID: id,
-  //   });
-  // };
   const itemPressHandler = (id: number) => {
     navigation.navigate('HomeProductDetail', {
       productID: id,
-      // isComingFromHome: true,
     });
   };
 
@@ -87,15 +109,8 @@ const HomeScreen = ({navigation}: NavigationPropsT) => {
     setSearchData([]);
   };
 
-  const ImagePressHandler = (categoryName: string) => {
-    console.log('categoryName', categoryName);
-    navigation.navigate('ProductsByCategory', {categoryName});
-  };
-
   const goToCartHandler = (productId: number) => {
     navigation.navigate('CartTab', {productID: productId});
-    // dispatch(removeProductFromCart_ProductsSlice(productId));
-    // dispatch(removeProductFromCart_CategoriesSlice(productId));
   };
 
   return (
@@ -173,9 +188,9 @@ const styles = StyleSheet.create({
   notFound: {
     flex: 1,
     textAlign: 'center',
-    fontSize: 18,
+    fontSize: 20,
     color: '#666',
-    marginTop: 30,
+    marginTop: 50,
   },
 });
 

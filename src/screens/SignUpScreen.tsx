@@ -67,7 +67,7 @@ const SignUpScreen = ({navigation}: NavigationPropsT) => {
     <GestureHandlerRootView style={{flex: 1, backgroundColor: 'white'}}>
       <ScrollView>
         <View style={styles.container}>
-          <Text style={styles.text}>Create new account</Text>
+          <Text style={styles.text}>Create account</Text>
           <Avatar style={styles.avatar} onImageSelected={handleImageSelected} />
           <View style={styles.formContainer}>
             <CustomInput
@@ -144,10 +144,10 @@ const styles = StyleSheet.create({
   },
   button: {
     width: '60%',
-    marginTop: 30,
+    marginTop: 20,
   },
   avatar: {
-    marginBottom: 20,
+    marginBottom: 10,
   },
   textContainer: {
     marginTop: 16,

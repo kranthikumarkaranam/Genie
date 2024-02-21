@@ -14,6 +14,7 @@ import {clearAll_MyUserSlice} from '../store/MyUserSlice';
 import {clearAll_ApiUserSlice} from '../store/ApiUserSlice';
 import {clearAll_ProductsSlice} from '../store/ProductsSlice';
 import {clearAll_CategoriesSlice} from '../store/CategoriesSlice';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const CustomDrawerContent = (props: DrawerContentComponentProps) => {
   const {firstName, lastName, image} = useAppSelector(state => state.MyUser);
@@ -25,12 +26,23 @@ const CustomDrawerContent = (props: DrawerContentComponentProps) => {
     // Navigate to UpdateProfileScreen
     props.navigation.navigate('UpdateProfile');
   };
+
+  const clearAsyncStorage = async () => {
+    try {
+      await AsyncStorage.clear();
+      console.log('AsyncStorage cleared successfully');
+    } catch (e) {
+      console.error('Error clearing AsyncStorage:', e);
+    }
+  };
+
   const LogOutHandler = () => {
     // Remove all store data and navigate to Login Screen on logout
     dispatch(clearAll_MyUserSlice());
     dispatch(clearAll_ApiUserSlice());
     dispatch(clearAll_ProductsSlice());
     dispatch(clearAll_CategoriesSlice());
+    clearAsyncStorage();
 
     props.navigation.dispatch(StackActions.replace('Auth', {screen: 'SignIn'}));
   };

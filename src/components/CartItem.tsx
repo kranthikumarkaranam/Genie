@@ -31,10 +31,11 @@ import {asyncT} from '../types/store-Types';
 
 interface CartItemT {
   data: productApiT;
+  // cartCount: number;
 }
 const CartItem = ({data}: CartItemT) => {
   const dispatch = useAppDispatch();
-  const [cartCount, setCartCount] = useState<number>(data.cartCount);
+  // const [cartCount, setCartCount] = useState<number>(data.cartCount);
 
   const originalPrice = calculateOriginalPrice(
     data.price,
@@ -42,8 +43,6 @@ const CartItem = ({data}: CartItemT) => {
   );
 
   const plusPressHandler = async (productId: number) => {
-    setCartCount(prevValue => prevValue + 1);
-
     try {
       const jsonValue = await AsyncStorage.getItem('cartItems');
       const storedCartItems: asyncT[] | null =
@@ -73,8 +72,6 @@ const CartItem = ({data}: CartItemT) => {
     dispatch(addProductToCart_CategoriesSlice(data.id));
   };
   const minusPressHandler = async (productId: number) => {
-    setCartCount(prevValue => prevValue - 1);
-
     try {
       const jsonValue = await AsyncStorage.getItem('cartItems');
       const storedCartItems: asyncT[] | null =
@@ -112,10 +109,6 @@ const CartItem = ({data}: CartItemT) => {
     dispatch(removeProductFromCart_CategoriesSlice(data.id));
   };
 
-  useEffect(() => {
-    console.log('cartItem data => ', data.price);
-  }, [data]);
-
   return (
     <>
       <View style={styles.container}>
@@ -129,27 +122,23 @@ const CartItem = ({data}: CartItemT) => {
         </View>
         <View style={styles.textContainer}>
           <Text style={styles.title} numberOfLines={2}>
-            id= {data.id}
-            {/* {data.title} */}
-            cartC=
-            {data.cartCount === undefined ? '0' : `${data.cartCount}`}
-            bool={data.isInCart === undefined ? '0' : `${data.isInCart}`}
-            price={data.price}
+            {data.title}
           </Text>
 
           <View style={styles.priceContainer}>
             <Text style={styles.price}>
-              ${cartCount === 0 ? data.price : data.price * cartCount}$
-              {/* {data.price} */}
+              {/* ${cartCount === 0 ? data.price : data.price * cartCount} */}$
+              {data.price * data.cartCount}
             </Text>
             <Text style={[styles.mrp, {textDecorationLine: 'line-through'}]}>
-              ${cartCount === 0 ? originalPrice : originalPrice * cartCount}
+              {/* ${cartCount === 0 ? originalPrice : originalPrice * cartCount} */}
+              ${originalPrice * data.cartCount}
             </Text>
           </View>
           <View style={styles.buttonsContainer}>
             <TouchableNativeFeedback onPress={() => minusPressHandler(data.id)}>
               <View style={[styles.icon, {borderRightWidth: 0.8}]}>
-                {cartCount === 0 || cartCount === 1 ? (
+                {data.cartCount === 0 || data.cartCount === 1 ? (
                   <Ionicons name="trash-outline" size={20} color="#393939" />
                 ) : (
                   <AntDesign name="minus" size={22} color="#393939" />
@@ -163,7 +152,7 @@ const CartItem = ({data}: CartItemT) => {
                   fontWeight: '600',
                   color: constants.PrimaryColor,
                 }}>
-                {cartCount === 0 ? 1 : cartCount}
+                {data.cartCount === 0 ? 1 : data.cartCount}
               </Text>
             </View>
             <TouchableNativeFeedback onPress={() => plusPressHandler(data.id)}>
@@ -210,6 +199,7 @@ const styles = StyleSheet.create({
     marginLeft: 24,
     backgroundColor: 'white',
     minWidth: '66%',
+    maxWidth: '70%',
     flexGrow: 1,
     justifyContent: 'flex-start',
   },

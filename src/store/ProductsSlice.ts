@@ -1,9 +1,10 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 import {productApiT, productsApiT} from '../types/api-Types';
 import {createAppAsyncThunk} from './pre-Typed';
-import {storeT} from '../types/store-Types';
+import {asyncT, storeT} from '../types/store-Types';
 import constants from '../util/constants';
-import {store} from './store';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {startMapper} from 'react-native-reanimated';
 
 interface ProductsState extends storeT {
   entities: productApiT[];
@@ -27,6 +28,23 @@ export const FetchAllProducts = createAppAsyncThunk<productsApiT, number>(
       `${constants.API_KEY}/products/?limit=${limit}`,
     );
     return (await response.json()) as productsApiT;
+  },
+);
+
+export const FetchCartItemsFromAsyncStorage = createAppAsyncThunk<asyncT[]>(
+  'Products/fetchCartItemsFromAsyncStorage',
+  async (_, {rejectWithValue, getState, requestId}) => {
+    const {currentRequestId, loading} = getState().Products;
+    if (loading !== 'pending' || requestId !== currentRequestId) {
+      return rejectWithValue({errorMessage: 'Request canceled or pending'});
+    }
+    const jsonValue = await AsyncStorage.getItem('cartItems');
+    const storedCartItems: asyncT[] | null =
+      jsonValue != null ? JSON.parse(jsonValue) : null;
+    if (storedCartItems === null) {
+      return [];
+    }
+    return storedCartItems as asyncT[];
   },
 );
 
@@ -77,6 +95,13 @@ const ProductsSlice = createSlice({
         product.cartCount,
       );
     },
+    clearCartData: state => {
+      state.entities = state.entities.map(item => ({
+        ...item,
+        isInCart: false,
+        cartCount: 0,
+      }));
+    },
     clearAll_ProductsSlice: () => initialProductsState,
   },
   extraReducers: builder => {
@@ -116,6 +141,52 @@ const ProductsSlice = createSlice({
             state.error = action.error.message;
           }
         }
+      })
+      .addCase(FetchCartItemsFromAsyncStorage.pending, (state, action) => {
+        if (state.loading === 'idle') {
+          state.loading = 'pending';
+          state.error = null;
+          state.currentRequestId = action.meta.requestId;
+        }
+      })
+      .addCase(FetchCartItemsFromAsyncStorage.fulfilled, (state, action) => {
+        const {requestId} = action.meta;
+        const cartItems = action.payload;
+        if (
+          state.loading === 'pending' &&
+          state.currentRequestId === requestId
+        ) {
+          state.loading = 'idle';
+          state.currentRequestId = undefined;
+          // Loop through the cart items
+          cartItems.forEach(cartItem => {
+            // Find the product in the entities array with the matching productId
+            const product = state.entities.find(
+              entity => entity.id === cartItem.productId,
+            );
+
+            // If the product is found, update its isInCart and cartCount properties
+            if (product) {
+              product.isInCart = true;
+              product.cartCount = cartItem.quantity;
+            }
+          });
+        }
+      })
+      .addCase(FetchCartItemsFromAsyncStorage.rejected, (state, action) => {
+        const {requestId} = action.meta;
+        if (
+          state.loading === 'pending' &&
+          state.currentRequestId === requestId
+        ) {
+          state.loading = 'idle';
+          state.currentRequestId = undefined;
+          if (action.payload) {
+            state.error = action.payload.errorMessage;
+          } else {
+            state.error = action.error.message;
+          }
+        }
       });
   },
 });
@@ -124,5 +195,6 @@ export const {
   addProductToCart_ProductsSlice,
   removeProductFromCart_ProductsSlice,
   clearAll_ProductsSlice,
+  clearCartData,
 } = ProductsSlice.actions;
 export default ProductsSlice.reducer;

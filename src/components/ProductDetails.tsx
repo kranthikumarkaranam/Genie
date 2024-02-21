@@ -112,7 +112,6 @@ const ProductDetails = ({data, goToCart, buyNow}: ProductDetailsT) => {
       if (storedCartItems === null) {
         cartItems = [];
         cartItems.push({productId: productId, quantity: 1});
-        buyNow(productId);
       } else {
         cartItems = storedCartItems;
         const existingProduct = cartItems.find(
@@ -120,14 +119,13 @@ const ProductDetails = ({data, goToCart, buyNow}: ProductDetailsT) => {
         );
         if (!existingProduct) {
           cartItems.push({productId: productId, quantity: 1});
-          buyNow(productId);
         } else {
-          buyNow(productId);
         }
       }
       try {
         const jsonValue = JSON.stringify(cartItems);
         await AsyncStorage.setItem('cartItems', jsonValue);
+        buyNow(productId);
 
         console.log('cartItems in asyncStorage => ', cartItems);
       } catch (e) {

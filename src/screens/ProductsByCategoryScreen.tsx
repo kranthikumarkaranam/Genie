@@ -49,16 +49,15 @@ const ProductsByCategoryScreen = ({route, navigation}: NavigationPropsT) => {
       FetchAllProductsByCategory(categoryName),
     );
     if (FetchAllProductsByCategory.fulfilled.match(resultAction)) {
-      // dispatch(setProducts(resultAction.payload));
       // Alert.alert('Success', 'Data fetched successfully');
       console.log(
         'FETCH RESULT from  FetchAllProductsByCategoryHandler ----  first product title ---->  ',
         resultAction.payload.products[0].title,
       );
-      console.log(
-        'STATE RESULT from  FetchAllProductsByCategoryHandler   ---- first product title ---->  ',
-        store.getState().Categories.entities[0].products[0].title,
-      );
+      // console.log(
+      //   'STATE RESULT from  FetchAllProductsByCategoryHandler   ---- first product title ---->  ',
+      //   store.getState().Categories.entities[0].products[0].title,
+      // );
     } else {
       if (resultAction.payload) {
         Alert.alert(
@@ -82,8 +81,6 @@ const ProductsByCategoryScreen = ({route, navigation}: NavigationPropsT) => {
   };
   const goToCartHandler = (productId: number) => {
     navigation.navigate('CartTab', {productID: productId});
-    // dispatch(removeProductFromCart_ProductsSlice(productId));
-    // dispatch(removeProductFromCart_CategoriesSlice(productId));
   };
 
   return (

@@ -1,9 +1,16 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {
+  Alert,
+  FlatList,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import CartItem from '../components/CartItem';
 import ScreenHead from '../components/ScreenHead';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
-import {useAppSelector} from '../store/pre-Typed';
+import {useAppDispatch, useAppSelector} from '../store/pre-Typed';
 import {productApiT} from '../types/api-Types';
 import CartFooter from '../components/CartFooter';
 import PlaceOrder from '../components/PlaceOrder';
@@ -19,42 +26,66 @@ import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {asyncT} from '../types/store-Types';
 import {Button} from 'react-native';
+import {
+  FetchCartItemsFromAsyncStorage,
+  clearCartData,
+} from '../store/ProductsSlice';
+import {store} from '../store/store';
 
 type NavigationPropsT = BottomTabScreenProps<RootStackParamList, 'CartTab'>;
 
 const CartScreen = ({navigation}: NavigationPropsT) => {
   const products = useAppSelector(state => state.Products.entities);
+  const dispatch = useAppDispatch();
 
   const [cartItems, setCartItems] = useState<productApiT[]>([]);
 
   useEffect(() => {
-    const fetchAsyncStorageCartItems = async () => {
-      try {
-        const jsonValue = await AsyncStorage.getItem('cartItems');
-        const storedCartItems: {productId: number; quantity: number}[] | null =
-          jsonValue != null ? JSON.parse(jsonValue) : null;
-
-        if (storedCartItems) {
-          const filteredProducts = products.filter(product =>
-            storedCartItems.some(item => item.productId === product.id),
-          );
-          setCartItems(filteredProducts);
-        }
-      } catch (e) {
-        console.error('Error reading cart items:', e);
-      }
-    };
-
+    FetchCartItemsFromAsyncStorageHandler();
     fetchAsyncStorageCartItems();
   }, [products]);
 
-  useEffect(() => {
-    console.log(
-      'cartItems local state => ',
-      cartItems,
-      // cartItems.map(i => i.title),
-    );
-  }, [cartItems]);
+  const fetchAsyncStorageCartItems = async () => {
+    try {
+      const jsonValue = await AsyncStorage.getItem('cartItems');
+      const storedCartItems: {productId: number; quantity: number}[] | null =
+        jsonValue != null ? JSON.parse(jsonValue) : null;
+
+      if (storedCartItems) {
+        const filteredProducts = products.filter(product =>
+          storedCartItems.some(item => item.productId === product.id),
+        );
+        setCartItems(filteredProducts);
+      }
+    } catch (e) {
+      console.error('Error reading cart items:', e);
+    }
+  };
+
+  const FetchCartItemsFromAsyncStorageHandler = async () => {
+    const resultAction = await dispatch(FetchCartItemsFromAsyncStorage());
+    if (FetchCartItemsFromAsyncStorage.fulfilled.match(resultAction)) {
+      // Alert.alert('Success', 'Data fetched successfully');
+      console.log(
+        'FETCH RESULT  from FetchCartItemsFromAsyncStorageHandler  --->  ',
+        resultAction.payload,
+      );
+      console.log(
+        'STATE RESULT from FetchCartItemsFromAsyncStorageHandler ---->  1, 2 elements cartCount --->  ',
+        store.getState().Products.entities[0].cartCount,
+        store.getState().Products.entities[1].cartCount,
+      );
+    } else {
+      if (resultAction.payload) {
+        Alert.alert(
+          'Failure - payload error',
+          `${resultAction.payload.errorMessage}`,
+        );
+      } else {
+        Alert.alert('Failure - action error', `${resultAction.error.message}`);
+      }
+    }
+  };
 
   const renderItem = ({item}: {item: productApiT}) => <CartItem data={item} />;
 
@@ -74,19 +105,41 @@ const CartScreen = ({navigation}: NavigationPropsT) => {
     return total + product.price * product.cartCount;
   }, 0);
 
-  const clearAsyncStorage = async () => {
+  const clearCartHandler = async () => {
     try {
       await AsyncStorage.clear();
+      await dispatch(clearCartData());
+      setCartItems([]);
       console.log('AsyncStorage cleared successfully');
     } catch (e) {
       console.error('Error clearing AsyncStorage:', e);
     }
   };
 
+  const clearCart = () => {
+    Alert.alert(
+      'Clear Cart?',
+      'Are you sure you want to remove all items in the cart?',
+      [
+        {
+          text: 'No',
+          onPress: () => {},
+          style: 'cancel',
+        },
+        {text: 'Yes', onPress: clearCartHandler},
+      ],
+      {cancelable: true},
+    );
+  };
+
   return (
     <>
-      <ScreenHead title="My Cart" />
-      <Button title="clearAsyncStorage" onPress={clearAsyncStorage}></Button>
+      {cartItems.length > 0 ? (
+        <ScreenHead title="My Cart" isButton onPress={clearCart} />
+      ) : (
+        <ScreenHead title="My Cart" />
+      )}
+
       <GestureHandlerRootView style={{flex: 1, backgroundColor: 'white'}}>
         <FlatList
           renderItem={renderItem}
@@ -138,6 +191,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: '50%',
   },
-  emptyText: {fontSize: 26, fontWeight: 'bold', color: '#333'},
+  emptyText: {fontSize: 26, fontWeight: '600', color: '#333'},
 });
 export default CartScreen;
