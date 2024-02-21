@@ -19,7 +19,7 @@ import {store} from '../store/store';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {addProductToCart_ProductsSlice} from '../store/ProductsSlice';
 import {addProductToCart_CategoriesSlice} from '../store/CategoriesSlice';
-import {asyncT} from '../types/store-Types';
+import {asyncCartT} from '../types/store-Types';
 interface ProductItemT {
   data: productApiT;
   onPress: (productId: number) => void;
@@ -72,9 +72,9 @@ const ProductItem = ({data, onPress, goToCart}: ProductItemT) => {
   const addToCartHandler = async (productId: number) => {
     try {
       const jsonValue = await AsyncStorage.getItem('cartItems');
-      const storedCartItems: asyncT[] | null =
+      const storedCartItems: asyncCartT[] | null =
         jsonValue != null ? JSON.parse(jsonValue) : null;
-      let cartItems: asyncT[] = [];
+      let cartItems: asyncCartT[] = [];
       if (storedCartItems === null) {
         cartItems = [];
         cartItems.push({productId: productId, quantity: 1});

@@ -27,7 +27,7 @@ import {
   removeProductFromCart_CategoriesSlice,
 } from '../store/CategoriesSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {asyncT} from '../types/store-Types';
+import {asyncCartT} from '../types/store-Types';
 
 interface CartItemT {
   data: productApiT;
@@ -45,7 +45,7 @@ const CartItem = ({data}: CartItemT) => {
   const plusPressHandler = async (productId: number) => {
     try {
       const jsonValue = await AsyncStorage.getItem('cartItems');
-      const storedCartItems: asyncT[] | null =
+      const storedCartItems: asyncCartT[] | null =
         jsonValue != null ? JSON.parse(jsonValue) : null;
       if (storedCartItems) {
         const existingProduct = storedCartItems.find(
@@ -74,9 +74,9 @@ const CartItem = ({data}: CartItemT) => {
   const minusPressHandler = async (productId: number) => {
     try {
       const jsonValue = await AsyncStorage.getItem('cartItems');
-      const storedCartItems: asyncT[] | null =
+      const storedCartItems: asyncCartT[] | null =
         jsonValue != null ? JSON.parse(jsonValue) : null;
-      let cartItems: asyncT[] | null = storedCartItems;
+      let cartItems: asyncCartT[] | null = storedCartItems;
       if (storedCartItems) {
         const existingProduct = storedCartItems.find(
           item => item.productId === productId,

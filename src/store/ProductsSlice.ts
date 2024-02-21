@@ -1,7 +1,7 @@
 import {PayloadAction, createSlice} from '@reduxjs/toolkit';
 import {productApiT, productsApiT} from '../types/api-Types';
 import {createAppAsyncThunk} from './pre-Typed';
-import {asyncT, storeT} from '../types/store-Types';
+import {asyncCartT, storeT} from '../types/store-Types';
 import constants from '../util/constants';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {startMapper} from 'react-native-reanimated';
@@ -31,7 +31,7 @@ export const FetchAllProducts = createAppAsyncThunk<productsApiT, number>(
   },
 );
 
-export const FetchCartItemsFromAsyncStorage = createAppAsyncThunk<asyncT[]>(
+export const FetchCartItemsFromAsyncStorage = createAppAsyncThunk<asyncCartT[]>(
   'Products/fetchCartItemsFromAsyncStorage',
   async (_, {rejectWithValue, getState, requestId}) => {
     const {currentRequestId, loading} = getState().Products;
@@ -39,12 +39,12 @@ export const FetchCartItemsFromAsyncStorage = createAppAsyncThunk<asyncT[]>(
       return rejectWithValue({errorMessage: 'Request canceled or pending'});
     }
     const jsonValue = await AsyncStorage.getItem('cartItems');
-    const storedCartItems: asyncT[] | null =
+    const storedCartItems: asyncCartT[] | null =
       jsonValue != null ? JSON.parse(jsonValue) : null;
     if (storedCartItems === null) {
       return [];
     }
-    return storedCartItems as asyncT[];
+    return storedCartItems as asyncCartT[];
   },
 );
 

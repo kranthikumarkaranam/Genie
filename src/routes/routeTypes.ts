@@ -24,4 +24,5 @@ export type RootStackParamList = {
   HomeTab: undefined;
   Categories: undefined;
   CategoriesTab: undefined;
+  StartUp: undefined;
 };

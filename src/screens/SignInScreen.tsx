@@ -8,35 +8,63 @@ import constants from '../util/constants';
 import {RootStackParamList} from '../routes/routeTypes';
 import {ValidateUser} from '../store/ApiUserSlice';
 import {TouchableNativeFeedback} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {asyncAuthT} from '../types/store-Types';
+import {store} from '../store/store';
 
 type NavigationPropsT = NativeStackScreenProps<RootStackParamList, 'SignIn'>;
 
 const SignInScreen = ({navigation}: NavigationPropsT) => {
   const [username, setUsername] = useState('kminchelle');
   const [password, setPassword] = useState('0lelplR');
+  const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
 
   const dispatch = useAppDispatch();
 
-  const ValidateUserDispatcher = async (username: string, password: string) => {
-    try {
-      const originalPromiseResult = await dispatch(
-        ValidateUser({username, password}),
-      ).unwrap();
-      console.log('ApiUserSlice  -----  ', originalPromiseResult);
-      // handle result here
-    } catch (rejectedValueOrSerializedError) {
-      // handle error here
+  const ValidateUserHandler = async (username: string, password: string) => {
+    const resultAction = await dispatch(ValidateUser({username, password}));
+    if (ValidateUser.fulfilled.match(resultAction)) {
+      // Alert.alert('Success', 'Data fetched successfully');
+      console.log(
+        'FETCH RESULT from ValidateUserHandler  ----  firstName ---->  ',
+        resultAction.payload.firstName,
+      );
+      console.log(
+        'STATE RESULT from ValidateUserHandler  ---- firstName ---->  ',
+        store.getState().ApiUser.entities.firstName,
+      );
+    } else {
+      if (resultAction.payload) {
+        Alert.alert(
+          'Failure - payload error',
+          `${resultAction.payload.errorMessage}`,
+        );
+      } else {
+        Alert.alert('Failure - action error', `${resultAction.error.message}`);
+      }
     }
   };
 
-  const SignInHandler = () => {
+  const SignInHandler = async () => {
     if (!username || !password) {
       Alert.alert('Error', 'Please fill out all fields');
     } else {
-      ValidateUserDispatcher(username, password);
-      // Clear form fields
-      setUsername('');
-      setPassword('');
+      await ValidateUserHandler(username, password);
+
+      const AuthToken: asyncAuthT = store.getState().ApiUser.entities.token;
+
+      try {
+        const jsonValue = JSON.stringify(AuthToken);
+        await AsyncStorage.setItem('AuthToken', jsonValue);
+        // Clear form fields
+        setUsername('');
+        setPassword('');
+
+        console.log('AuthToken in asyncStorage => ', AuthToken);
+      } catch (e) {
+        // saving error
+        console.error('Error saving Auth User:', e);
+      }
 
       // Navigate to next screen
       navigation.navigate('Main');
@@ -47,12 +75,16 @@ const SignInScreen = ({navigation}: NavigationPropsT) => {
     navigation.navigate('SignUp');
   };
 
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible(!isPasswordVisible);
+  };
+
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Sign In</Text>
       <View style={styles.formContainer}>
         <CustomInput
-          placeholder="E-mail"
+          placeholder="username"
           value={username}
           onChangeText={setUsername}
           keyboardType="email-address"
@@ -61,7 +93,10 @@ const SignInScreen = ({navigation}: NavigationPropsT) => {
           placeholder="Password"
           value={password}
           onChangeText={setPassword}
-          secureTextEntry
+          secureTextEntry={!isPasswordVisible}
+          isEye
+          whichEye={isPasswordVisible ? 'eye-off' : 'eye'}
+          eyePress={togglePasswordVisibility}
         />
       </View>
 

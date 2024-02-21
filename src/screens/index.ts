@@ -8,3 +8,4 @@ export {default as MyOrdersScreen} from './MyOrdersScreen';
 export {default as UpdateProfileScreen} from './UpdateProfileScreen';
 export {default as CategoriesScreen} from './CategoriesScreen';
 export {default as HomeProductDetailScreen} from './HomeProductDetailScreen';
+export {default as StartUpScreen} from './StartUpScreen';

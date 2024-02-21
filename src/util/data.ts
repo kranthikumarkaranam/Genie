@@ -1,5 +1,3 @@
-import constants from './constants';
-
 export const MyOrders = [
   {
     id: 1,
@@ -23,17 +21,4 @@ export const MyOrders = [
       {id: 6, name: 'Product 6', price: 50},
     ],
   },
-];
-
-export const Images = [
-  constants.BannerPlaceholderImgae,
-  constants.BannerPlaceholderImgae,
-  constants.BannerPlaceholderImgae,
-  constants.BannerPlaceholderImgae,
-  constants.BannerPlaceholderImgae,
-  // 'https://c4.wallpaperflare.com/wallpaper/52/138/501/doll-flowers-red-flowers-wallpaper-preview.jpg',
-  // 'https://via.placeholder.com/200x200?text=Image+2',
-  // 'https://via.placeholder.com/200x200?text=Image+3',
-  // 'https://via.placeholder.com/200x200?text=Image+4',
-  // 'https://via.placeholder.com/200x200?text=Image+5',
 ];

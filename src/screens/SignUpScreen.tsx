@@ -24,6 +24,7 @@ const SignUpScreen = ({navigation}: NavigationPropsT) => {
   const [password, setPassword] = useState('Kara271&#');
   const [confirmPassword, setConfirmPassword] = useState('Kara271&#');
   const [image, setImage] = useState<string | null>(null);
+  const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
 
   const handleImageSelected = (imageUri: string | null) => {
     setImage(imageUri);
@@ -44,6 +45,10 @@ const SignUpScreen = ({navigation}: NavigationPropsT) => {
     } else {
       // Dispatch action to store form data
       dispatch(setUser({firstName, lastName, username, password, image}));
+      console.log(
+        'STATE RESULT from SignUpHandler  ---- firstName ---->  ',
+        store.getState().MyUser.firstName,
+      );
 
       // Clear form fields
       setFirstName('');
@@ -55,12 +60,15 @@ const SignUpScreen = ({navigation}: NavigationPropsT) => {
 
       // Navigate to next screen
       navigation.navigate('SignIn');
-      console.log(store.getState().MyUser);
     }
   };
 
   const goToSignInHandler = () => {
     navigation.navigate('SignIn');
+  };
+
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible(!isPasswordVisible);
   };
 
   return (
@@ -81,7 +89,7 @@ const SignUpScreen = ({navigation}: NavigationPropsT) => {
               onChangeText={setLastName}
             />
             <CustomInput
-              placeholder="E-mail Address"
+              placeholder="username"
               value={username}
               onChangeText={setUsername}
               keyboardType="email-address"
@@ -90,13 +98,19 @@ const SignUpScreen = ({navigation}: NavigationPropsT) => {
               placeholder="Password"
               value={password}
               onChangeText={setPassword}
-              secureTextEntry
+              secureTextEntry={!isPasswordVisible}
+              isEye
+              whichEye={isPasswordVisible ? 'eye-off' : 'eye'}
+              eyePress={togglePasswordVisibility}
             />
             <CustomInput
               placeholder="Confirm Password"
               value={confirmPassword}
               onChangeText={setConfirmPassword}
-              secureTextEntry
+              secureTextEntry={!isPasswordVisible}
+              isEye
+              whichEye={isPasswordVisible ? 'eye-off' : 'eye'}
+              eyePress={togglePasswordVisibility}
             />
           </View>
 

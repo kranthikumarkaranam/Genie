@@ -4,7 +4,9 @@ export interface storeT {
   error: string | null | undefined;
 }
 
-export interface asyncT {
+export interface asyncCartT {
   productId: number;
   quantity: number;
 }
+
+export type asyncAuthT = string;

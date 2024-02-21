@@ -24,7 +24,7 @@ import {
 } from '../util/UtilityFunctions';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {asyncT} from '../types/store-Types';
+import {asyncCartT} from '../types/store-Types';
 import {Button} from 'react-native';
 import {
   FetchCartItemsFromAsyncStorage,

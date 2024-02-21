@@ -14,7 +14,7 @@ import CustomButton from './CustomButton';
 import {addProductToCart_ProductsSlice} from '../store/ProductsSlice';
 import {addProductToCart_CategoriesSlice} from '../store/CategoriesSlice';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {asyncT} from '../types/store-Types';
+import {asyncCartT} from '../types/store-Types';
 
 type ProductDetailsT = {
   data: productApiT;
@@ -69,9 +69,9 @@ const ProductDetails = ({data, goToCart, buyNow}: ProductDetailsT) => {
   const addToCartHandler = async (productId: number) => {
     try {
       const jsonValue = await AsyncStorage.getItem('cartItems');
-      const storedCartItems: asyncT[] | null =
+      const storedCartItems: asyncCartT[] | null =
         jsonValue != null ? JSON.parse(jsonValue) : null;
-      let cartItems: asyncT[] = [];
+      let cartItems: asyncCartT[] = [];
       if (storedCartItems === null) {
         cartItems = [];
         cartItems.push({productId: productId, quantity: 1});
@@ -106,9 +106,9 @@ const ProductDetails = ({data, goToCart, buyNow}: ProductDetailsT) => {
   const buyNowHandler = async (productId: number) => {
     try {
       const jsonValue = await AsyncStorage.getItem('cartItems');
-      const storedCartItems: asyncT[] | null =
+      const storedCartItems: asyncCartT[] | null =
         jsonValue != null ? JSON.parse(jsonValue) : null;
-      let cartItems: asyncT[] = [];
+      let cartItems: asyncCartT[] = [];
       if (storedCartItems === null) {
         cartItems = [];
         cartItems.push({productId: productId, quantity: 1});
