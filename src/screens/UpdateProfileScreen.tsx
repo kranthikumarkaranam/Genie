@@ -33,6 +33,7 @@ const UpdateProfileScreen = ({route, navigation}: NavigationPropsT) => {
   const [username, setUsername] = useState(storedUsename);
   const [password, setPassword] = useState(storedPassword);
   const [image, setImage] = useState<string | null>(storedImage);
+  const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
 
   const handleImageSelected = (imageUri: string | null) => {
     setImage(imageUri);
@@ -64,6 +65,10 @@ const UpdateProfileScreen = ({route, navigation}: NavigationPropsT) => {
     }
   };
 
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible(!isPasswordVisible);
+  };
+
   return (
     <GestureHandlerRootView style={{flex: 1, backgroundColor: 'white'}}>
       <ScrollView>
@@ -87,11 +92,15 @@ const UpdateProfileScreen = ({route, navigation}: NavigationPropsT) => {
               onChangeText={setUsername}
               keyboardType="email-address"
             />
+
             <CustomInput
               placeholder="Password"
               value={password}
               onChangeText={setPassword}
-              secureTextEntry
+              secureTextEntry={!isPasswordVisible}
+              isEye
+              whichEye={isPasswordVisible ? 'eye-off' : 'eye'}
+              eyePress={togglePasswordVisibility}
             />
           </View>
 
