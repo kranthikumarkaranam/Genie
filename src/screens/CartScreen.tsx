@@ -31,6 +31,7 @@ import {
   clearCartData,
 } from '../store/ProductsSlice';
 import {store} from '../store/store';
+import LoadingIndicator from '../components/LoadingIndicator';
 
 type NavigationPropsT = BottomTabScreenProps<RootStackParamList, 'CartTab'>;
 
@@ -39,10 +40,11 @@ const CartScreen = ({navigation}: NavigationPropsT) => {
   const dispatch = useAppDispatch();
 
   const [cartItems, setCartItems] = useState<productApiT[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    FetchCartItemsFromAsyncStorageHandler();
     fetchAsyncStorageCartItems();
+    setIsLoading(false);
   }, [products]);
 
   const fetchAsyncStorageCartItems = async () => {
@@ -59,31 +61,6 @@ const CartScreen = ({navigation}: NavigationPropsT) => {
       }
     } catch (e) {
       console.error('Error reading cart items:', e);
-    }
-  };
-
-  const FetchCartItemsFromAsyncStorageHandler = async () => {
-    const resultAction = await dispatch(FetchCartItemsFromAsyncStorage());
-    if (FetchCartItemsFromAsyncStorage.fulfilled.match(resultAction)) {
-      // Alert.alert('Success', 'Data fetched successfully');
-      console.log(
-        'FETCH RESULT  from FetchCartItemsFromAsyncStorageHandler  --->  ',
-        resultAction.payload,
-      );
-      console.log(
-        'STATE RESULT from FetchCartItemsFromAsyncStorageHandler ---->  1, 2 elements cartCount --->  ',
-        store.getState().Products.entities[0].cartCount,
-        store.getState().Products.entities[1].cartCount,
-      );
-    } else {
-      if (resultAction.payload) {
-        Alert.alert(
-          'Failure - payload error',
-          `${resultAction.payload.errorMessage}`,
-        );
-      } else {
-        Alert.alert('Failure - action error', `${resultAction.error.message}`);
-      }
     }
   };
 
@@ -141,45 +118,51 @@ const CartScreen = ({navigation}: NavigationPropsT) => {
       )}
 
       <GestureHandlerRootView style={{flex: 1, backgroundColor: 'white'}}>
-        <FlatList
-          renderItem={renderItem}
-          data={cartItems}
-          keyExtractor={item => item.id.toString()}
-          ListEmptyComponent={() => {
-            return (
-              <View style={styles.emptyContainer}>
-                <Text style={styles.emptyText}>Your cart is empty!</Text>
-                <CustomButton
-                  title="Shop now"
-                  onPress={shopNowHandler}
-                  containerStyle={{
-                    marginTop: 32,
-                    borderRadius: 8,
-                    width: '40%',
-                  }}
-                  textStyle={{
-                    fontWeight: '700',
-                  }}
-                />
-              </View>
-            );
-          }}
-          ListFooterComponent={() => {
-            return cartItems.length > 0 ? (
-              <CartFooter
-                noOfItems={cartItems.length}
+        {isLoading ? (
+          <LoadingIndicator size="small" paddingHorizontal={136} />
+        ) : (
+          <>
+            <FlatList
+              renderItem={renderItem}
+              data={cartItems}
+              keyExtractor={item => item.id.toString()}
+              ListEmptyComponent={() => {
+                return (
+                  <View style={styles.emptyContainer}>
+                    <Text style={styles.emptyText}>Your cart is empty!</Text>
+                    <CustomButton
+                      title="Shop now"
+                      onPress={shopNowHandler}
+                      containerStyle={{
+                        marginTop: 32,
+                        borderRadius: 8,
+                        width: '40%',
+                      }}
+                      textStyle={{
+                        fontWeight: '700',
+                      }}
+                    />
+                  </View>
+                );
+              }}
+              ListFooterComponent={() => {
+                return cartItems.length > 0 ? (
+                  <CartFooter
+                    noOfItems={cartItems.length}
+                    TotalOfOriginalPrices={TotalOfOriginalPrices}
+                    TotalOfProductPrices={TotalOfProductPrices}
+                  />
+                ) : null;
+              }}
+            />
+            {cartItems.length > 0 ? (
+              <PlaceOrder
                 TotalOfOriginalPrices={TotalOfOriginalPrices}
                 TotalOfProductPrices={TotalOfProductPrices}
               />
-            ) : null;
-          }}
-        />
-        {cartItems.length > 0 ? (
-          <PlaceOrder
-            TotalOfOriginalPrices={TotalOfOriginalPrices}
-            TotalOfProductPrices={TotalOfProductPrices}
-          />
-        ) : null}
+            ) : null}
+          </>
+        )}
       </GestureHandlerRootView>
     </>
   );

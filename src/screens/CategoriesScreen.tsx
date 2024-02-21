@@ -17,6 +17,7 @@ import {Category, FetchAllCategories} from '../store/CategoriesSlice';
 import {store} from '../store/store';
 import {reverseFormatCategory} from '../util/UtilityFunctions';
 import {FlatList} from 'react-native';
+import LoadingIndicator from '../components/LoadingIndicator';
 
 type NavigationPropsT = NativeStackScreenProps<
   RootStackParamList,
@@ -27,10 +28,14 @@ const CategoriesScreen = ({navigation}: NavigationPropsT) => {
   const dispatch = useAppDispatch();
   const CategoriesList = useAppSelector(state => state.Categories.entities);
 
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     // Fetch the categories when this screen is first shown
-    FetchAllCategoriesHandler();
-  }, [dispatch]);
+    FetchAllCategoriesHandler().then(() => {
+      setIsLoading(false);
+    });
+  }, []);
 
   const FetchAllCategoriesHandler = async () => {
     const resultAction = await dispatch(FetchAllCategories());
@@ -108,9 +113,7 @@ const CategoriesScreen = ({navigation}: NavigationPropsT) => {
   };
 
   const renderItem = ({item}: {item: Category}) => (
-    // <ProductItem data={item} onPress={itemPress} />
     <TouchableOpacity
-      // key={index}
       onPress={() => {
         categorySelectHandler(item.name);
       }}>
@@ -127,13 +130,17 @@ const CategoriesScreen = ({navigation}: NavigationPropsT) => {
   return (
     <>
       <ScreenHead title="All Categories" />
-      <FlatList
-        data={CategoriesList}
-        renderItem={renderItem}
-        keyExtractor={item => item.id.toString()}
-        numColumns={3}
-        contentContainerStyle={styles.flatListContainer}
-      />
+      {isLoading ? (
+        <LoadingIndicator size="small" paddingHorizontal={136} />
+      ) : (
+        <FlatList
+          data={CategoriesList}
+          renderItem={renderItem}
+          keyExtractor={item => item.id.toString()}
+          numColumns={3}
+          contentContainerStyle={styles.flatListContainer}
+        />
+      )}
     </>
   );
 };

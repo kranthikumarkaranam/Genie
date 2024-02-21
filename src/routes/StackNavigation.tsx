@@ -47,12 +47,12 @@ export const AuthStack = ({navigation}: NavigationPropsT) => {
   }, []);
 
   if (isLoading) {
-    return <LoadingIndicator />; // Render a loading indicator while checking for the `AuthToken`
+    return <LoadingIndicator size="small" paddingHorizontal={136} />; // Render a loading indicator while checking for the `AuthToken`
   }
 
   return (
     <Stack.Navigator
-      initialRouteName="SignUp"
+      initialRouteName="StartUp"
       screenOptions={{headerShown: false}}>
       <Stack.Screen name="StartUp" component={StartUpScreen} />
       <Stack.Screen name="SignUp" component={SignUpScreen} />

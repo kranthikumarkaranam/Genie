@@ -7,7 +7,6 @@ import type {NativeStackScreenProps} from '@react-navigation/native-stack';
 import constants from '../util/constants';
 import {RootStackParamList} from '../routes/routeTypes';
 import {ValidateUser} from '../store/ApiUserSlice';
-import {TouchableNativeFeedback} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {asyncAuthT} from '../types/store-Types';
 import {store} from '../store/store';

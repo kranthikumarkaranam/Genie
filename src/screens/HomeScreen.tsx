@@ -22,7 +22,7 @@ import {useAppDispatch, useAppSelector} from '../store/pre-Typed';
 import {productApiT, productsApiT} from '../types/api-Types';
 import ImageCarousel from '../components/ImageCarousel';
 import constants, {BannerImages} from '../util/constants';
-import {removeProductFromCart_CategoriesSlice} from '../store/CategoriesSlice';
+import LoadingIndicator from '../components/LoadingIndicator';
 
 type NavigationPropsT = NativeStackScreenProps<RootStackParamList, 'MyHome'>;
 
@@ -30,11 +30,15 @@ const HomeScreen = ({navigation}: NavigationPropsT) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchData, setSearchData] = useState<productApiT[]>([]);
   const [showSearchResults, setShowSearchResults] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState(true);
+
   const dispatch = useAppDispatch();
   const products = useAppSelector(state => state.Products.entities);
   useEffect(() => {
     FetchAllProductsHandler().then(() => {
-      FetchCartItemsFromAsyncStorageHandler();
+      FetchCartItemsFromAsyncStorageHandler().then(() => {
+        setIsLoading(false);
+      });
     });
   }, []);
 
@@ -124,11 +128,15 @@ const HomeScreen = ({navigation}: NavigationPropsT) => {
               onChangeText={searchTerm => setSearchTerm(searchTerm)}
               onPress={searchHandler}
             />
-            <ProductList
-              data={products}
-              itemPress={itemPressHandler}
-              goToCart={goToCartHandler}
-            />
+            {isLoading ? (
+              <LoadingIndicator size="small" paddingHorizontal={126} />
+            ) : (
+              <ProductList
+                data={products}
+                itemPress={itemPressHandler}
+                goToCart={goToCartHandler}
+              />
+            )}
           </>
         )}
         {showSearchResults && (
@@ -155,11 +163,17 @@ const HomeScreen = ({navigation}: NavigationPropsT) => {
           <Text style={styles.notFound}>No results found.</Text>
         )}
         {showSearchResults && searchData.length > 0 && (
-          <ProductList
-            data={searchData}
-            itemPress={itemPressHandler}
-            goToCart={goToCartHandler}
-          />
+          <>
+            {isLoading ? (
+              <LoadingIndicator size="small" paddingHorizontal={126} />
+            ) : (
+              <ProductList
+                data={searchData}
+                itemPress={itemPressHandler}
+                goToCart={goToCartHandler}
+              />
+            )}
+          </>
         )}
       </View>
     </>
