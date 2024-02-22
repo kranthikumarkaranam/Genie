@@ -27,7 +27,7 @@ export const SideDrawer = () => {
           headerShown: false,
           drawerLabelStyle: {marginLeft: -16, fontSize: 16},
         }}
-        initialRouteName="Home"
+        initialRouteName="MyOrders"
         drawerContent={props => <CustomDrawerContent {...props} />}>
         <Drawer.Screen
           name="Home"

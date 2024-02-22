@@ -1,10 +1,11 @@
 import React from 'react';
-import {FlatList, Text, TouchableWithoutFeedback, View} from 'react-native';
 import type {DrawerScreenProps} from '@react-navigation/drawer';
 import {RootStackParamList} from '../routes/routeTypes';
 import Header from '../components/Header';
-import {Images, MyOrders} from '../util/data';
-import ImageCarousel from '../components/ImageCarousel';
+import OrderItem from '../components/OrderItem';
+import {FlatList, View} from 'react-native';
+import {MyOrdersData} from '../util/data';
+import {asyncOrdersT} from '../types/store-Types';
 
 type NavigationPropsT = DrawerScreenProps<RootStackParamList, 'MyOrders'>;
 
@@ -13,39 +14,21 @@ const MyOrdersScreen = ({navigation}: NavigationPropsT) => {
     navigation.toggleDrawer();
   };
 
-  const onPressHandler = () => {
-    // navigation.navigate('OrderDetailsScreen', { orderId: item.id })
-  };
+  const renderItem = ({item}: {item: asyncOrdersT}) => (
+    <OrderItem data={item} />
+  );
+
   return (
     <>
       <Header menuPress={drawerMenuHandler} />
-      {/* <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-        <Text style={{fontSize: 20, marginBottom: 20}}>My Orders</Text>
-        {MyOrders.length > 0 ? (
-          <FlatList
-            data={MyOrders}
-            renderItem={({item}) => (
-              <TouchableWithoutFeedback
-                onPress={onPressHandler}
-                style={{
-                  padding: 10,
-                  borderBottomWidth: 1,
-                  borderBottomColor: '#ccc',
-                }}>
-                <>
-                  <Text>Order ID: {item.id}</Text>
-                  <Text>Ordered On: {item.total}</Text>
-                  <Text>Status: {item.status}</Text>
-                  <Text>Total: ${item.total}</Text>
-                </>
-              </TouchableWithoutFeedback>
-            )}
-            keyExtractor={item => item.id.toString()}
-          />
-        ) : (
-          <Text>No orders found</Text>
-        )}
-      </View> */}
+      <View
+        style={{
+          flex: 1,
+          paddingVertical: 16,
+          backgroundColor: '#ececec',
+        }}>
+        <FlatList data={MyOrdersData} renderItem={renderItem} />
+      </View>
     </>
   );
 };
