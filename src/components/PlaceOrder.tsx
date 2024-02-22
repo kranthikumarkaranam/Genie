@@ -4,10 +4,12 @@ import CustomButton from './CustomButton';
 interface PlaceOrderT {
   TotalOfOriginalPrices: number;
   TotalOfProductPrices: number;
+  onOkPress: () => void;
 }
 const PlaceOrder = ({
   TotalOfOriginalPrices,
   TotalOfProductPrices,
+  onOkPress,
 }: PlaceOrderT) => {
   const handlePress = () => {
     console.log('Placing Order');
@@ -21,7 +23,7 @@ Are you sure?`,
           onPress: () => console.log('Cancel Pressed'),
           style: 'cancel',
         },
-        {text: 'OK', onPress: () => console.log('OK Pressed')},
+        {text: 'OK', onPress: onOkPress},
       ],
       {cancelable: true},
     );

@@ -85,7 +85,7 @@ const CartScreen = ({navigation}: NavigationPropsT) => {
   const clearCartHandler = async () => {
     try {
       await AsyncStorage.clear();
-      await dispatch(clearCartData());
+      dispatch(clearCartData());
       setCartItems([]);
       console.log('AsyncStorage cleared successfully');
     } catch (e) {
@@ -159,6 +159,7 @@ const CartScreen = ({navigation}: NavigationPropsT) => {
               <PlaceOrder
                 TotalOfOriginalPrices={TotalOfOriginalPrices}
                 TotalOfProductPrices={TotalOfProductPrices}
+                onOkPress={clearCartHandler}
               />
             ) : null}
           </>
