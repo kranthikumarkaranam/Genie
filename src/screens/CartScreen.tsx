@@ -84,7 +84,7 @@ const CartScreen = ({navigation}: NavigationPropsT) => {
 
   const clearCartHandler = async () => {
     try {
-      await AsyncStorage.clear();
+      await AsyncStorage.removeItem('cartItems'); // remove the key-value pair completely
       dispatch(clearCartData());
       setCartItems([]);
       console.log('AsyncStorage cleared successfully');
