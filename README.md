@@ -3,8 +3,9 @@
 <br>
 <p align="center" id="description" > I developed a comprehensive E-Commerce mobile application using React Native, designed to provide a seamless shopping experience on both Android and iOS platforms. The app includes a wide range of advanced features.</p>
 
+<br>
 
-<h2>🚀 App Features:</h2>
+<h2>📱 App Features:</h2>
 
 * Product Listings 📋: Users can browse a wide range of products with detailed descriptions, pricing, and images. The interface allows easy navigation between different product categories.
 
@@ -30,8 +31,10 @@
 
 * Redux State Management: The app uses Redux to manage global state, ensuring consistent product states, user sessions, and cart data throughout the app.
 
+<br>
 
-<h2>📌 Key Achievements:</h2>
+
+<h2>🏆 Key Achievements:</h2>
 
 * Optimized Performance: Built for high efficiency on both Android and iOS platforms, ensuring smooth performance and responsive design.
 
@@ -41,17 +44,21 @@
 
 Watch demo of the app <a href="https://vimeo.com/1012140528?share=copy#t=0" target="_blank" rel="noopener noreferrer">here.</a>
 
-<h2>🚀 Video Demo</h2>
+<br>
+
+
+<h2>🎥 Video Demo</h2>
 
 <p>Check out this video to see the user interface and functionality of the E-Commerce Genie app in action.</p>
 
 **Watch the video <a href="https://vimeo.com/1012140528?share=copy" target="_blank" rel="noopener noreferrer">here.</a>**
 
+<br>
+
 <h2>🖼️ Project Screenshots</h2>
 
 <p>Take a sneak peek at these screenshots of the E-Commerce Genie app to get a visual preview of its captivating user interface.</p>
 
-<br>
 
 <img src="https://raw.githubusercontent.com/kranthikumarkaranam/ASSETS/refs/heads/main/kranthi_geneie_app.jpg?token=GHSAT0AAAAAACXFGQPQUV2BW6XJLANL2NWGZXRX2FA" width="auto" height="auto">
 
