@@ -31,7 +31,7 @@
 * Redux State Management: The app uses Redux to manage global state, ensuring consistent product states, user sessions, and cart data throughout the app.
 
 
-<h2>🚀 Key Achievements:</h2>
+<h2>📌 Key Achievements:</h2>
 
 * Optimized Performance: Built for high efficiency on both Android and iOS platforms, ensuring smooth performance and responsive design.
 
