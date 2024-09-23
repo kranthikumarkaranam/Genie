@@ -62,8 +62,8 @@
 
 <br>
 
-<h3 align="center">⬅️ Startup Page ➡️</h3>
-<img src="https://raw.githubusercontent.com/kranthikumarkaranam/real-state/main/Home.jpg" alt="project-screenshot" width="auto" height="auto">
+<h3 align="center">⬅️ Startup Screen ➡️</h3>
+<img src="https://raw.githubusercontent.com/kranthikumarkaranam/ASSETS/refs/heads/main/geneie_app_assets/startup_screen.jpg?token=GHSAT0AAAAAACXFGQPQQ3JQCACQHNGMZ53QZXRYWNQ" alt="project-screenshot" width="auto" height="auto">
 
 <br>
 
