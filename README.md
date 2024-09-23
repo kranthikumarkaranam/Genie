@@ -58,6 +58,6 @@
 <p>Take a sneak peek at these screenshots of the E-Commerce Genie app to get a visual preview of its captivating user interface.</p>
 
 
-<img src="https://raw.githubusercontent.com/kranthikumarkaranam/ASSETS/refs/heads/main/kranthi_geneie_app.jpg?token=GHSAT0AAAAAACXFGQPQUV2BW6XJLANL2NWGZXRX2FA" width="auto" height="auto">
+<img src="https://github.com/kranthikumarkaranam/ASSETS/blob/main/kranthi_geneie_app.jpg?raw=true" width="auto" height="auto">
 
 
