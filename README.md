@@ -41,24 +41,18 @@
 
 Watch demo of the app <a href="https://vimeo.com/1012140528?share=copy#t=0" target="_blank" rel="noopener noreferrer">here.</a>
 
-<h2>🚀 Demo Video</h2>
+<h2>🚀 Video Demo</h2>
 
-<p>Check out this video to see the user interface and functionality of the E-Commerce app in action.</p>
+<p>Check out this video to see the user interface and functionality of the E-Commerce Genie app in action.</p>
 
 **Watch the video <a href="https://vimeo.com/1012140528?share=copy" target="_blank" rel="noopener noreferrer">here.</a>**
 
 <h2>🖼️ Project Screenshots</h2>
 
-<p>Take a glimpse at these screenshots of the portfolio website to get a visual preview of its captivating user interface.</p>
+<p>Take a sneak peek at these screenshots of the E-Commerce Genie app to get a visual preview of its captivating user interface.</p>
 
 <br>
 
-<img src="https://raw.githubusercontent.com/kranthikumarkaranam/ASSETS/main/README_IMAGES/Portfolio-v1-3.png?token=GHSAT0AAAAAACQUKAPTXP6IJOQTWFAQ6WMKZQZP6WA" width="auto" height="auto">
+<img src="https://raw.githubusercontent.com/kranthikumarkaranam/ASSETS/refs/heads/main/kranthi_geneie_app.jpg?token=GHSAT0AAAAAACXFGQPQUV2BW6XJLANL2NWGZXRX2FA" width="auto" height="auto">
 
-  
-<br>
-<br>
-<br>
-
-[![Watch the video](https://raw.githubusercontent.com/kranthikumarkaranam/ASSETS/refs/heads/main/kranthi_geneie_app.jpg?token=GHSAT0AAAAAACXFGQPQUV2BW6XJLANL2NWGZXRX2FA)](https://vimeo.com/1012140528?share=copy#t=0)
 
