@@ -65,22 +65,22 @@
 <br>
 
 <h3 align="center">⬅️ Product List Screen ➡️</h3>
-<img src="https://raw.githubusercontent.com/kranthikumarkaranam/ASSETS/refs/heads/main/geneie_app_assets/product_list_screen.jpg?token=GHSAT0AAAAAACXFGQPQ5QH2VMXVN5PBXMACZXRYXJQ" alt="project-screenshot" width="auto" height="auto">
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/109801522/370032434-e9d3b4a7-0cea-40f6-86c1-6dedc6ae7231.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20240923%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240923T200601Z&X-Amz-Expires=300&X-Amz-Signature=7fe88461654050f3f20dd0c21b74dca9c943615c8a953135d0605b40e1f5246e&X-Amz-SignedHeaders=host" alt="project-screenshot" width="auto" height="auto">
 
 <br>
 
 <h3 align="center">⬅️ Product Detail Screen ➡️</h3>
-<img src="https://raw.githubusercontent.com/kranthikumarkaranam/ASSETS/refs/heads/main/geneie_app_assets/product_detail_screen.jpg?token=GHSAT0AAAAAACXFGQPQGIQMFZWDPLTAHL7EZXRYYJA" alt="project-screenshot" width="auto" height="auto">
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/109801522/370032583-fcf00fb2-3b62-4431-a21c-71de18e3c284.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20240923%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240923T200632Z&X-Amz-Expires=300&X-Amz-Signature=fa60c5345fcf54595518d9cfb0334278bbc4ab3399afc72ef800dc71946b282b&X-Amz-SignedHeaders=host" alt="project-screenshot" width="auto" height="auto">
 
 <br>
 
 <h3 align="center">⬅️ Categories Screen ➡️</h3>
-<img src="https://raw.githubusercontent.com/kranthikumarkaranam/ASSETS/refs/heads/main/geneie_app_assets/categories_screen.jpg?token=GHSAT0AAAAAACXFGQPRCCSQY3J3UVBO4CU4ZXRYYMA" alt="project-screenshot" width="auto" height="auto">
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/109801522/370032694-f6d3d0c8-5bf0-404f-bec7-75e439941f82.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20240923%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240923T200700Z&X-Amz-Expires=300&X-Amz-Signature=a32e7ea07dab507a5897221277f06dbc427024a65cf4aaece5710d7ddab34e54&X-Amz-SignedHeaders=host" alt="project-screenshot" width="auto" height="auto">
 
 <br>
 
 <h3 align="center">⬅️ Cart Screen ➡️</h3>
-<img src="https://raw.githubusercontent.com/kranthikumarkaranam/ASSETS/refs/heads/main/geneie_app_assets/cart_screen.jpg?token=GHSAT0AAAAAACXFGQPRJXP7JVNWCKMZTVIYZXRYYOQ" alt="project-screenshot" width="auto" height="auto">
+<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/109801522/370032803-e1a9b1eb-4aaf-40f3-b7db-d00dec7a08ea.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20240923%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240923T200728Z&X-Amz-Expires=300&X-Amz-Signature=d48fec773ca0a3921d57dc14b63efd65df2100e632861edb978c9a5aefdc4911&X-Amz-SignedHeaders=host" alt="project-screenshot" width="auto" height="auto">
 
 <br>
 
