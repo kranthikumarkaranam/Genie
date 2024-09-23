@@ -57,9 +57,6 @@
 
 <p>Take a sneak peek at these screenshots of the E-Commerce Genie app to get a visual preview of its captivating user interface.</p>
 
-
-<img src="https://github.com/kranthikumarkaranam/ASSETS/blob/main/kranthi_geneie_app.jpg?raw=true" width="auto" height="auto">
-
 <br>
 
 <h3 align="center">⬅️ Startup Screen ➡️</h3>
@@ -67,8 +64,23 @@
 
 <br>
 
-<h3 align="center">⬅️ Properties Page ➡️</h3>
-<img src="https://raw.githubusercontent.com/kranthikumarkaranam/real-state/main/Properties.jpg" alt="project-screenshot" width="auto" height="auto">
+<h3 align="center">⬅️ Product List Screen ➡️</h3>
+<img src="https://raw.githubusercontent.com/kranthikumarkaranam/ASSETS/refs/heads/main/geneie_app_assets/product_list_screen.jpg?token=GHSAT0AAAAAACXFGQPQ5QH2VMXVN5PBXMACZXRYXJQ" alt="project-screenshot" width="auto" height="auto">
+
+<br>
+
+<h3 align="center">⬅️ Product Detail Screen ➡️</h3>
+<img src="https://raw.githubusercontent.com/kranthikumarkaranam/ASSETS/refs/heads/main/geneie_app_assets/product_detail_screen.jpg?token=GHSAT0AAAAAACXFGQPQGIQMFZWDPLTAHL7EZXRYYJA" alt="project-screenshot" width="auto" height="auto">
+
+<br>
+
+<h3 align="center">⬅️ Categories Screen ➡️</h3>
+<img src="https://raw.githubusercontent.com/kranthikumarkaranam/ASSETS/refs/heads/main/geneie_app_assets/categories_screen.jpg?token=GHSAT0AAAAAACXFGQPRCCSQY3J3UVBO4CU4ZXRYYMA" alt="project-screenshot" width="auto" height="auto">
+
+<br>
+
+<h3 align="center">⬅️ Cart Screen ➡️</h3>
+<img src="https://raw.githubusercontent.com/kranthikumarkaranam/ASSETS/refs/heads/main/geneie_app_assets/cart_screen.jpg?token=GHSAT0AAAAAACXFGQPRJXP7JVNWCKMZTVIYZXRYYOQ" alt="project-screenshot" width="auto" height="auto">
 
 <br>
 
