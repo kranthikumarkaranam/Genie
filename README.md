@@ -40,5 +40,5 @@
 * State Consistency: Managed global state using Redux, ensuring a seamless experience for users as they navigate through different sections of the app.
 
 Watch demo of the app <a href="https://drive.google.com/file/d/1gtNUrWFhXR4b7ek0iFfeL37Z0Pml2tW9/view?usp=sharing" target="_blank" rel="noopener noreferrer">here.</a>
-[![Watch the video](https://user-images.githubusercontent.com/.../thumbnail.jpg)](https://vimeo.com/1012140528)
+[![Watch the video](https://user-images.githubusercontent.com/.../thumbnail.jpg)](https://vimeo.com/1012140528?share=copy#t=0)
 
