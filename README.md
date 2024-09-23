@@ -62,12 +62,12 @@
 
 <br>
 
-<h3 align="center">Startup Page ➡️</h3>
+<h3 align="center">⬅️ Startup Page ➡️</h3>
 <img src="https://raw.githubusercontent.com/kranthikumarkaranam/real-state/main/Home.jpg" alt="project-screenshot" width="auto" height="auto">
 
 <br>
 
-<h3 align="center">Properties Page ➡️</h3>
+<h3 align="center">⬅️ Properties Page ➡️</h3>
 <img src="https://raw.githubusercontent.com/kranthikumarkaranam/real-state/main/Properties.jpg" alt="project-screenshot" width="auto" height="auto">
 
 <br>
