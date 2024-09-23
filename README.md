@@ -43,9 +43,9 @@ Watch demo of the app <a href="https://vimeo.com/1012140528?share=copy#t=0" targ
 
 <h2>🚀 Demo Video</h2>
 
-<p>Discover the portfolio website in action by exploring the live demo. Simply click on the provided link to access the interactive version of the website and experience its captivating design, seamless user interface, and impressive features firsthand.</p>
+<p>Check out this video to see the user interface and functionality of the E-Commerce app in action.</p>
 
-**Watch the video <a href="https://v1-kranthi-kumar.vercel.app" target="_blank" rel="noopener noreferrer">here.</a>**
+**Watch the video <a href="https://vimeo.com/1012140528?share=copy" target="_blank" rel="noopener noreferrer">here.</a>**
 
 <h2>🖼️ Project Screenshots</h2>
 
