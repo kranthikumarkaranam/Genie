@@ -3,7 +3,6 @@
 <br>
 <p align="center" id="description" > I developed a comprehensive E-Commerce mobile application using React Native, designed to provide a seamless shopping experience on both Android and iOS platforms. The app includes a wide range of advanced features.</p>
 
-<br>
 
 <h2>📱 App Features:</h2>
 
@@ -42,7 +41,6 @@
 
 * State Consistency: Managed global state using Redux, ensuring a seamless experience for users as they navigate through different sections of the app.
 
-Watch demo of the app <a href="https://vimeo.com/1012140528?share=copy#t=0" target="_blank" rel="noopener noreferrer">here.</a>
 
 <br>
 
