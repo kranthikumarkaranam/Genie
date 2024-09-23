@@ -4,10 +4,11 @@
 <p align="center" id="description" > I developed a comprehensive E-Commerce mobile application using React Native, designed to provide a seamless shopping experience on both Android and iOS platforms. The app includes a wide range of advanced features.</p>
 
 
+<h2>🚀 App Features:</h2>
 
-Product Listings 📋: Users can browse a wide range of products with detailed descriptions, pricing, and images. The interface allows easy navigation between different product categories.
+* Product Listings 📋: Users can browse a wide range of products with detailed descriptions, pricing, and images. The interface allows easy navigation between different product categories.
 
-Add-to-Cart 🛒: Shoppers can add items to their cart from the product listing or detail pages. The cart dynamically updates with item quantity, total price, and allows users to modify or remove items.
+* Add-to-Cart 🛒: Shoppers can add items to their cart from the product listing or detail pages. The cart dynamically updates with item quantity, total price, and allows users to modify or remove items.
 
 Checkout 💳: A secure and intuitive checkout process, integrated with payment gateways to handle transactions safely, offering multiple payment options.
 
