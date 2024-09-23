@@ -41,10 +41,9 @@
 
 Watch demo of the app <a href="https://vimeo.com/1012140528?share=copy#t=0" target="_blank" rel="noopener noreferrer">here.</a>
 
-<a href="https://vimeo.com/1012140528?share=copy#t=0">
-  <img src="https://raw.githubusercontent.com/kranthikumarkaranam/ASSETS/refs/heads/main/kranthi_geneie_app.jpg?token=GHSAT0AAAAAACXFGQPQUV2BW6XJLANL2NWGZXRX2FA" alt="Watch the video" width="640" height="360"/>
-</a>
-
+<br>
+<br>
+<br>
 
 [![Watch the video](https://raw.githubusercontent.com/kranthikumarkaranam/ASSETS/refs/heads/main/kranthi_geneie_app.jpg?token=GHSAT0AAAAAACXFGQPQUV2BW6XJLANL2NWGZXRX2FA)](https://vimeo.com/1012140528?share=copy#t=0)
 
