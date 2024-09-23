@@ -47,6 +47,15 @@ Watch demo of the app <a href="https://vimeo.com/1012140528?share=copy#t=0" targ
 
 **Watch the video <a href="https://v1-kranthi-kumar.vercel.app" target="_blank" rel="noopener noreferrer">here.</a>**
 
+<h2>🖼️ Project Screenshots</h2>
+
+<p>Take a glimpse at these screenshots of the portfolio website to get a visual preview of its captivating user interface.</p>
+
+<br>
+
+<img src="https://raw.githubusercontent.com/kranthikumarkaranam/ASSETS/main/README_IMAGES/Portfolio-v1-3.png?token=GHSAT0AAAAAACQUKAPTXP6IJOQTWFAQ6WMKZQZP6WA" width="auto" height="auto">
+
+  
 <br>
 <br>
 <br>
