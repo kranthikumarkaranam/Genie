@@ -1,5 +1,6 @@
 <h1 align="center" id="title">Full-Featured E-Commerce App 📱</h1>
 
+<br>
 <p align="center" id="description" > I developed a comprehensive E-Commerce mobile application using React Native, designed to provide a seamless shopping experience on both Android and iOS platforms. The app includes a wide range of advanced features.</p>
 
 
