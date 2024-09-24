@@ -1,6 +1,7 @@
 <p align="center">
-   
-  <img src="https://github.com/user-attachments/assets/006eda10-a7c1-4641-9b73-1fbc1df634de" alt="logo" width="180" height="180">
+   <a href="https://github.com/kranthikumarkaranam/Genie">
+    <img src="https://github.com/user-attachments/assets/006eda10-a7c1-4641-9b73-1fbc1df634de" alt="logo" width="180" height="180">
+   </a>
   
   <h1 align="center">Genie</h1>
 
