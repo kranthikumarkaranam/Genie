@@ -43,7 +43,7 @@ Developed a full-featured E-Commerce app 📱 using React Native for both Androi
 <br>
 
 <h3 align="center">⬅️ Startup Screen ➡️</h3>
-<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/109801522/370031885-85c65586-73ff-4cbf-aade-292b333b68d2.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20240923%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240923T200359Z&X-Amz-Expires=300&X-Amz-Signature=df3c93c7c53d5e4c40a5dd5ce6616a765741d74bea359135cc7e192a721fc253&X-Amz-SignedHeaders=host" alt="project-screenshot" width="auto" height="auto">
+<img src="https://api.cloudinary.com/v1_1/debv8uxno/image/download?api_key=237667386788677&format=jpg&public_id=startup_screen_z1kgiy&signature=bf31ee51e4d5fc57a5ab50221b5c80034d6c9043&timestamp=1729372307&transformation=fl_preserve_transparency&type=upload" alt="project-screenshot" width="auto" height="auto">
 
 <br>
 
