@@ -53,7 +53,7 @@ Developed a full-featured E-Commerce app 📱 using React Native for both Androi
 <br>
 
 <h3 align="center">⬅️ Product Detail Screen ➡️</h3>
-<img src="https://asset.cloudinary.com/debv8uxno/f82fe6ac697e48c3f89ecdd81635829d" alt="project-screenshot" width="auto" height="auto">
+<img src="https://api.cloudinary.com/v1_1/debv8uxno/image/download?api_key=237667386788677&format=jpg&public_id=product_detail_screen_q1apfm&signature=a821b2a2456b0283d82de9247a53f337fcd79274&timestamp=1729372177&transformation=fl_preserve_transparency&type=upload" alt="project-screenshot" width="auto" height="auto">
 
 <br>
 
