@@ -63,7 +63,7 @@ Developed a full-featured E-Commerce app 📱 using React Native for both Androi
 <br>
 
 <h3 align="center">⬅️ Cart Screen ➡️</h3>
-<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/109801522/370032803-e1a9b1eb-4aaf-40f3-b7db-d00dec7a08ea.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20240923%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240923T200728Z&X-Amz-Expires=300&X-Amz-Signature=d48fec773ca0a3921d57dc14b63efd65df2100e632861edb978c9a5aefdc4911&X-Amz-SignedHeaders=host" alt="project-screenshot" width="auto" height="auto">
+<img src="https://api.cloudinary.com/v1_1/debv8uxno/image/download?api_key=237667386788677&format=jpg&public_id=cart_screen_kirth2&signature=520d6e3c0d7fe16c4a61ab0f0731202a777d1cba&timestamp=1729372354&transformation=fl_preserve_transparency&type=upload" alt="project-screenshot" width="auto" height="auto">
 
 <br>
 <br>
