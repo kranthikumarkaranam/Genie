@@ -53,7 +53,7 @@ Developed a full-featured E-Commerce app 📱 using React Native for both Androi
 <br>
 
 <h3 align="center">⬅️ Product Detail Screen ➡️</h3>
-<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/109801522/370032583-fcf00fb2-3b62-4431-a21c-71de18e3c284.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20240923%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240923T200632Z&X-Amz-Expires=300&X-Amz-Signature=fa60c5345fcf54595518d9cfb0334278bbc4ab3399afc72ef800dc71946b282b&X-Amz-SignedHeaders=host" alt="project-screenshot" width="auto" height="auto">
+<img src="https://asset.cloudinary.com/debv8uxno/f82fe6ac697e48c3f89ecdd81635829d" alt="project-screenshot" width="auto" height="auto">
 
 <br>
 
