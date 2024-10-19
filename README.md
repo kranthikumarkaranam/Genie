@@ -48,7 +48,7 @@ Developed a full-featured E-Commerce app 📱 using React Native for both Androi
 <br>
 
 <h3 align="center">⬅️ Product List Screen ➡️</h3>
-<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/109801522/370032434-e9d3b4a7-0cea-40f6-86c1-6dedc6ae7231.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20240923%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240923T200601Z&X-Amz-Expires=300&X-Amz-Signature=7fe88461654050f3f20dd0c21b74dca9c943615c8a953135d0605b40e1f5246e&X-Amz-SignedHeaders=host" alt="project-screenshot" width="auto" height="auto">
+<img src="https://api.cloudinary.com/v1_1/debv8uxno/image/download?api_key=237667386788677&format=jpg&public_id=product_list_screen_axwkj0&signature=252142636bb92487244b51374e7b8ab77b706bc7&timestamp=1729372403&transformation=fl_preserve_transparency&type=upload" alt="project-screenshot" width="auto" height="auto">
 
 <br>
 
@@ -58,7 +58,7 @@ Developed a full-featured E-Commerce app 📱 using React Native for both Androi
 <br>
 
 <h3 align="center">⬅️ Categories Screen ➡️</h3>
-<img src="https://github-production-user-asset-6210df.s3.amazonaws.com/109801522/370032694-f6d3d0c8-5bf0-404f-bec7-75e439941f82.jpg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAVCODYLSA53PQK4ZA%2F20240923%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240923T200700Z&X-Amz-Expires=300&X-Amz-Signature=a32e7ea07dab507a5897221277f06dbc427024a65cf4aaece5710d7ddab34e54&X-Amz-SignedHeaders=host" alt="project-screenshot" width="auto" height="auto">
+<img src="https://api.cloudinary.com/v1_1/debv8uxno/image/download?api_key=237667386788677&format=jpg&public_id=categories_screen_xymqgx&signature=0025e029467b2e538f66d0211dacbb6dec12e9d0&timestamp=1729372437&transformation=fl_preserve_transparency&type=upload" alt="project-screenshot" width="auto" height="auto">
 
 <br>
 
