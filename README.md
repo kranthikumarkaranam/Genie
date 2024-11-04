@@ -48,22 +48,22 @@ Developed a full-featured E-Commerce app 📱 using React Native for both Androi
 <br>
 
 <h3 align="center">⬅️ Product List Screen ➡️</h3>
-<img src="https://api.cloudinary.com/v1_1/debv8uxno/image/download?api_key=237667386788677&format=jpg&public_id=product_list_screen_axwkj0&signature=252142636bb92487244b51374e7b8ab77b706bc7&timestamp=1729372403&transformation=fl_preserve_transparency&type=upload" alt="project-screenshot" width="auto" height="auto">
+<img src="https://github.com/user-attachments/assets/19884f5c-24ce-42a9-9328-d3bb5e88dde6" alt="project-screenshot" width="auto" height="auto">
 
 <br>
 
 <h3 align="center">⬅️ Product Detail Screen ➡️</h3>
-<img src="https://api.cloudinary.com/v1_1/debv8uxno/image/download?api_key=237667386788677&format=jpg&public_id=product_detail_screen_q1apfm&signature=a821b2a2456b0283d82de9247a53f337fcd79274&timestamp=1729372177&transformation=fl_preserve_transparency&type=upload" alt="project-screenshot" width="auto" height="auto">
+<img src="https://github.com/user-attachments/assets/81578027-0315-4a36-ba10-ebf994fc23e2" alt="project-screenshot" width="auto" height="auto">
 
 <br>
 
 <h3 align="center">⬅️ Categories Screen ➡️</h3>
-<img src="https://api.cloudinary.com/v1_1/debv8uxno/image/download?api_key=237667386788677&format=jpg&public_id=categories_screen_xymqgx&signature=0025e029467b2e538f66d0211dacbb6dec12e9d0&timestamp=1729372437&transformation=fl_preserve_transparency&type=upload" alt="project-screenshot" width="auto" height="auto">
+<img src="https://github.com/user-attachments/assets/2a3878b4-dfb7-4ed9-9ca6-c57cb6b54dc2" alt="project-screenshot" width="auto" height="auto">
 
 <br>
 
 <h3 align="center">⬅️ Cart Screen ➡️</h3>
-<img src="https://api.cloudinary.com/v1_1/debv8uxno/image/download?api_key=237667386788677&format=jpg&public_id=cart_screen_kirth2&signature=520d6e3c0d7fe16c4a61ab0f0731202a777d1cba&timestamp=1729372354&transformation=fl_preserve_transparency&type=upload" alt="project-screenshot" width="auto" height="auto">
+<img src="https://github.com/user-attachments/assets/1ab38913-ae14-435d-b0b2-46dcda9a53ff" alt="project-screenshot" width="auto" height="auto">
 
 <br>
 <br>
